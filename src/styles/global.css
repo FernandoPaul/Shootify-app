@@ -1,0 +1,18 @@
+:root {
+    --body-background-color: #f5f5f5;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--body-background-color);
+    /* Color gris claro */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    /* Hereda el color del elemento padre */
+
+}
