@@ -1,0 +1,21 @@
+.profile-sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.profile-content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* btn se centra en su contenido */
+.btn-save {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}

@@ -1,0 +1,52 @@
+/* Imagen Principal*/
+.main-image {
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* MINI IMAGENES */
+.thumb {
+    width: 90px;
+    height: 90px;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #deded9;
+    transition: all 0.3s ease;
+}
+
+/* Imagen ocupa todo el espacio del thumb */
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.thumb:hover {
+    /*background: #ececea;*/
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Efecto al hacer click en la imagen */
+.thumb:active {
+    transform: scale(0.95);
+    border: 2px solid #007bff;
+}
+
+.btn svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 2px;
+    margin-right: 5px;
+}

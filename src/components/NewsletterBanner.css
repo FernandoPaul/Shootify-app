@@ -1,0 +1,33 @@
+.newsletter-banner {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+}
+
+.newsletter-banner input {
+    border-radius: 10px;
+}
+
+/* Para tablets */
+@media (max-width: 768px) {
+    .newsletter-banner .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .newsletter-banner .col-lg-6 {
+        width: 100%;
+    }
+}
+
+/* Para móviles */
+@media (max-width: 576px) {
+    .newsletter-banner .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .newsletter-banner .col-lg-6 {
+        width: 100%;
+    }
+}

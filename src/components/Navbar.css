@@ -1,13 +1,35 @@
 :root {
-    --nav-background: #f8f8f8;
+    --nav-background: #f2f2f0;
     /* Color gris muy claro */
     --nav-hover: rgba(0, 0, 0, 0.05);
-    --nav-text: #5a5a5a;
+    --nav-text: #1a1a1a;
     --nav-text-hover: black;
+    --nav-border: #deded9;
 }
 
+/* ANUNCIO SUPERIOR */
+.nav-anuncio {
+    background-color: var(--nav-background);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    color: var(--nav-text);
+}
+
+/* NAVBAR */
 .navbar {
     background-color: var(--nav-background);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar--scrolled {
+    background-color: var(--nav-background);
+    backdrop-filter: blur(12px);
+    /* Efecto de desenfoque */
+    box-shadow: 0 1px 0 var(--nav-border), 0 4px 16px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
 }
 
 /* LOGO */
@@ -43,4 +65,55 @@
     color: var(--nav-text-hover) !important;
     background-color: var(--nav-hover) !important;
     border-radius: 5px;
+}
+
+/* BARRA DE BÚSQUEDA */
+.search-bar {
+    position: absolute;
+    /* Se posiciona respecto al navbar sticky*/
+    top: 100%;
+    /* Se coloca exactamente donde termina el navbar*/
+    left: 0;
+    /* Para que se quede fijo en la parte superior */
+    width: 100%;
+    background-color: var(--nav-background);
+    border-bottom: 1px solid var(--nav-border);
+    padding: 2px 0;
+    animation: slideDown 0.3s ease;
+    z-index: 999;
+}
+
+.search-bar input {
+    flex: 1;
+    background: none;
+    /* Sin fondo */
+    box-shadow: none;
+    /* Sin sombra */
+    outline: none;
+    /* Sin borde al hacer click */
+    color: var(--nav-text);
+    font-size: 14px;
+    font-family: var(--font-body);
+    caret-color: var(--accent);
+}
+
+.search-bar input:focus {
+    background-color: var(--nav-background);
+    box-shadow: none;
+    border-color: transparent;
+    outline: none;
+}
+
+
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

@@ -1,0 +1,23 @@
+/* FOOTER */
+.footer {
+    font-size: 13px;
+    color: #888;
+}
+
+.footer a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    color: #111;
+}
+
+.copy-right {
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid #deded9;
+    color: #bbb;
+    font-size: 12px;
+}

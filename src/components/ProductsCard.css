@@ -1,0 +1,71 @@
+.product-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+/* Al pasar el ratón por encima de la tarjeta, se eleva 5px y se le añade una sombra */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ZONA SUPERIOR */
+.product-image {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #fdfdfd;
+    overflow: hidden;
+}
+
+.product-image .icon-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image img {
+    max-height: 160px;
+    /* Menos que el contenedor para dejar espacio al padding */
+    max-width: 90%;
+    object-fit: contain;
+    /* Para que la imagen se adapte al contenedor */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.08);
+    /* Efeoto zoom suave al pasar el ratón */
+}
+
+/* El badge se posiciona sobre la imagen */
+.badge {
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+/* COLORES DIFERENTES PARA OFERTA */
+.product-image.oferta {
+    background-color: #fffaf0;
+}
+
+.product-description {
+    display: -webkit-box;
+    /* Limita el texto a 2 líneas */
+    -webkit-line-clamp: 2;
+    /* Indica que el texto se mostrará en 2 líneas */
+    -webkit-box-orient: vertical;
+    /* Para que el texto se muestre en 2 líneas */
+    overflow: hidden;
+    /* Para que el texto se muestre en 2 líneas */
+    line-clamp: 2;
+    /* Para que el texto se muestre en 2 líneas */
+}

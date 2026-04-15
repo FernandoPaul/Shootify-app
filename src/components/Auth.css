@@ -1,0 +1,54 @@
+.auth-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f5f5;
+}
+
+.auth-card {
+    width: 350px;
+    padding: 30px;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-card form label {
+    margin-bottom: 5px;
+}
+
+.auth-card form input {
+    margin-bottom: 10px;
+}
+
+.auth-card form button {
+    margin-top: 10px;
+}
+
+.auth-card form button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.auth-card form button:hover {
+    opacity: 0.9;
+}
+
+.auth-card form button:active {
+    opacity: 1;
+}
+
+.auth-card form button:focus {
+    outline: none;
+}

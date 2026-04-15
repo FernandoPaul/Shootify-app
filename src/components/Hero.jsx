@@ -1,15 +1,15 @@
 import "./Hero.css";
-import HeroImg from "../assets/hero.png";
+import HeroImg from "../assets/Gemini_Generated_Hero.png";
 import { Container } from "react-bootstrap";
 
 const Hero = () => {
     return (
-        <section className="hero-section d-flex align-items-center">
+        <section className="hero-section d-flex justify-content-center align-items-center">
             {/* d-flex para que sea flexbox, align-items-center para centrar verticalmente */}
             <Container className="hero-container py-5">
                 <div className="row align-items-center"> {/* align-items-center para centrar verticalmente */}
                     {/* Texto izquierda */}
-                    <div className="hero-left col-lg-6"> {/* col-lg-6 para que ocupe la mitad de la pantalla en pantallas grandes */}
+                    <div className="hero-left col-lg-6 col-md-12 col-sm-12"> {/* col-lg-6 para que ocupe la mitad de la pantalla en pantallas grandes */}
                         <span className="badge bg-light text-dark mb-3">NUEVO 2026</span>
                         <h1 className="hero-title">
                             ELEVA TU <br />
@@ -32,9 +32,10 @@ const Hero = () => {
                         </div>
                     </div>
                     {/* Imagen derecha */}
-                    <div className="col-lg-6 text-center">
-                        <div className="phone-mockup mx-auto">
-                            <img src={HeroImg} alt="hero prueba" />
+                    <div className="col-lg-6 text-center ">
+                        <div className="img-hero mx-auto">
+                            <img src={HeroImg} alt="hero prueba" className="img-fluid" />
+                            {/*img-fluid para que la imagen se adapte al contenedor*/}
                         </div>
                     </div>
                 </div>
