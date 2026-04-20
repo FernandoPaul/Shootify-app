@@ -104,8 +104,6 @@
     outline: none;
 }
 
-
-
 @keyframes slideDown {
     from {
         transform: translateY(-10px);

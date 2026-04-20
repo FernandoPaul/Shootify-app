@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
-import '../components/Auth.css';
+import '../pages/AuthLoginRegister.css';
 
 function Register() {
+    // Variables para guardar los datos del usuario
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

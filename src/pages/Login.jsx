@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth } from "../firebase/config";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import '../components/Auth.css'
+import '../pages/AuthLoginRegister.css'
 import { Link, useNavigate } from "react-router-dom";
 
 // Iniciar sesion

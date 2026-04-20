@@ -1,0 +1,37 @@
+.category-filter button {
+    border-radius: 50px;
+    /* Hace que los botones sean redondos - tipo píldora*/
+    padding: 6px 16px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    /* hace que el boton sea mas suave al cambiar*/
+}
+
+/* BOTÓN INACTIVO */
+.category-filter .btn-outline-secondary {
+    border-color: #ddd;
+    color: #555;
+    background-color: transparent;
+}
+
+/* HOVER */
+.category-filter .btn-outline-secondary:hover {
+    background-color: #f5f5f5;
+    border-color: #ccc;
+    color: #000;
+    transform: scale(1.05);
+    /* hace que el boton sea un poco mas grande*/
+}
+
+/* BOTÓN ACTIVO */
+.category-filter .btn-dark {
+    background-color: #111;
+    border-color: #111;
+}
+
+/* HOVER ACTIVO */
+.category-filter .btn-dark:hover {
+    background-color: #111;
+    transform: scale(1.05);
+    /* hace que el boton sea un poco mas grande*/
+}

@@ -1,13 +1,26 @@
 import { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { FaSearch, FaUser, FaShoppingCart, FaTimes } from 'react-icons/fa'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import './Navbar.css'
 
 const CustomNavbar = () => {
     const [showSearch, setShowSearch] = useState(false)
     const { user } = useAuth()
+    const [search, setSearch] = useState("")
+    const navigate = useNavigate()
+
+    const handleSearch = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault() /* Evita que la página se recargue */
+            if (search.trim() !== "") { /* Evita que la búsqueda se realice sin texto */
+                navigate(`/products?search=${search}`)
+                setShowSearch(false) /* Cierra la barra de búsqueda */
+                setSearch("") /* Limpia la barra de búsqueda */
+            }
+        }
+    }
 
     return (
         <>
@@ -42,7 +55,9 @@ const CustomNavbar = () => {
                             <Nav.Link as={Link} to={user ? "/profile" : "/login"}>
                                 <FaUser className="nav-link-icon" />
                             </Nav.Link>
-                            <FaShoppingCart className="nav-link-icon" />
+                            <Nav.Link as={Link} to="/cart">
+                                <FaShoppingCart className="nav-link-icon" />
+                            </Nav.Link>
                         </div>
 
                     </Navbar.Collapse>
@@ -56,6 +71,9 @@ const CustomNavbar = () => {
                                     className="form-control border-0"
                                     placeholder="Buscar productos..."
                                     autoFocus
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    onKeyDown={handleSearch}
                                 />
                                 <FaTimes className="ms-2" onClick={() => setShowSearch(false)} /> {/* Icono de cerrar - Se muestra cuando se hace clic en el icono de búsqueda*/}
                             </div>
@@ -63,8 +81,6 @@ const CustomNavbar = () => {
                     )}
                 </Container>
             </Navbar>
-
-
         </>
     )
 }
