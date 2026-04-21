@@ -1,17 +1,3 @@
-.product-card {
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background: #fff;
-    border: 1px solid #eee;
-}
-
-/* Al pasar el ratón por encima de la tarjeta, se eleva 5px y se le añade una sombra */
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-}
-
 /* ZONA SUPERIOR */
 .product-image {
     height: 180px;
@@ -40,6 +26,50 @@
     transition: transform 0.3s ease;
 }
 
+/* ZONA INFERIOR */
+.product-title {
+    display: -webkit-box;
+    /* Limita el texto a 2 líneas */
+    -webkit-line-clamp: 2;
+    /* Indica que el texto se mostrará en 2 líneas */
+    -webkit-box-orient: vertical;
+    /* Para que el texto se muestre en 2 líneas */
+    overflow: hidden;
+    /* Para que el texto se muestre en 2 líneas */
+    text-overflow: ellipsis;
+    /* Para que el texto se muestre en 2 líneas */
+    min-height: 3em;
+    /* Forzamos una altura uniforme */
+}
+
+.product-description {
+    display: -webkit-box;
+    /* Limita el texto a 3 líneas */
+    -webkit-line-clamp: 3;
+    /* Indica que el texto se mostrará en 3 líneas */
+    -webkit-box-orient: vertical;
+    /* Para que el texto se muestre en 3 líneas */
+    overflow: hidden;
+    /* Para que el texto se muestre en 3 líneas */
+    text-overflow: ellipsis;
+    /* Para que el texto se muestre en 3 líneas */
+}
+
+/* EFECTOS PARA TODA LA TARJETA*/
+.product-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+/* Al pasar el ratón por encima de la tarjeta, se eleva 5px y se le añade una sombra */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
 .product-card:hover .product-image img {
     transform: scale(1.08);
     /* Efeoto zoom suave al pasar el ratón */
@@ -55,17 +85,4 @@
 /* COLORES DIFERENTES PARA OFERTA */
 .product-image.oferta {
     background-color: #fffaf0;
-}
-
-.product-description {
-    display: -webkit-box;
-    /* Limita el texto a 2 líneas */
-    -webkit-line-clamp: 2;
-    /* Indica que el texto se mostrará en 2 líneas */
-    -webkit-box-orient: vertical;
-    /* Para que el texto se muestre en 2 líneas */
-    overflow: hidden;
-    /* Para que el texto se muestre en 2 líneas */
-    line-clamp: 2;
-    /* Para que el texto se muestre en 2 líneas */
 }

@@ -1,14 +1,12 @@
 import './ProductsCard.css'
 import { FaPlus } from 'react-icons/fa'
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase/config";
 
 {/* FaPlus para añadir al carrito */ }
 function ProductCard({ product }) {
     const navigate = useNavigate(); // Para navegar entre páginas
     const handleCardClick = () => {
-        navigate(`/product/${product.id}`); // Entra al detalle del producto
+        navigate(`/catalog/item/${product.id}`); // Entra al detalle del producto
     };
 
     const handleAddToCart = (e) => {
@@ -18,7 +16,7 @@ function ProductCard({ product }) {
     };
 
     return (
-        <div className='card product-card border-0' onClick={handleCardClick}>
+        <div className='card product-card border-0' onClick={handleCardClick} >
             {/* border-0 para que no tenga borde */}
             {/* PARTE SUPERIOR */}
             <div className={`product-image ${product.oferta ? 'oferta' : ''}`}>
@@ -32,9 +30,9 @@ function ProductCard({ product }) {
 
             {/* PARTE INFERIOR */}
             <div className='card-body'>
-                <small className='text-muted'>SHOOTIFY</small>
-                <h5 className='product-title mt-1'>{product.name}</h5>
-                <small className='text-muted d-block mb-2 product-description'>{product.description}</small>
+                <small className='text-muted'>{product.brand}</small>
+                <h5 className='product-title mt-1 '>{product.name}</h5>
+                <small className='text-muted mb-2 product-description'>{product.description}</small>
                 <div className='d-flex justify-content-between ms-2'>
                     <div>
                         <strong>{product.price}€</strong>
@@ -51,6 +49,7 @@ function ProductCard({ product }) {
                     </button>
                 </div>
             </div>
+
         </div>
     )
 }

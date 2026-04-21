@@ -1,6 +1,7 @@
 import "./Hero.css";
 import HeroImg from "../assets/Gemini_Generated_Hero.png";
 import { Container } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
     return (
@@ -9,8 +10,8 @@ const Hero = () => {
             <Container className="hero-container py-5">
                 <div className="row align-items-center"> {/* align-items-center para centrar verticalmente */}
                     {/* Texto izquierda */}
-                    <div className="hero-left col-lg-6 col-md-12 col-sm-12"> {/* col-lg-6 para que ocupe la mitad de la pantalla en pantallas grandes */}
-                        <span className="badge bg-light text-dark mb-3">NUEVO 2026</span>
+                    <div className="hero-left col-lg-6 col-md-6 col-sm-12"> {/* col-lg-6 para que ocupe la mitad de la pantalla en pantallas grandes */}
+                        <span className="badge bg-black text-white mb-3">NUEVO 2026</span>
                         <h1 className="hero-title">
                             ELEVA TU <br />
                             <span>CONTENIDO</span> <br />
@@ -21,8 +22,8 @@ const Hero = () => {
                         </p>
                         <div className="hero-buttons d-flex gap-3 mb-4">
                             {/* d-flex para que sea flexbox, gap-3 para que haya espacio entre los botones */}
-                            <button className="btn btn-dark">Ver Catálogo</button>
-                            <button className="btn btn-dark">Ver Novedades</button>
+                            <NavLink to="/catalog" className="btn btn-dark">Ver Catálogo</NavLink>
+                            <NavLink to="/catalog" className="btn btn-dark">Ver Novedades</NavLink>
                         </div>
                         <div className="hero-stats d-flex gap-4">
                             {/* tex-muted para que el texto sea gris */}
@@ -32,7 +33,7 @@ const Hero = () => {
                         </div>
                     </div>
                     {/* Imagen derecha */}
-                    <div className="col-lg-6 text-center ">
+                    <div className="col-lg-6 col-md-6  text-center ">
                         <div className="img-hero mx-auto">
                             <img src={HeroImg} alt="hero prueba" className="img-fluid" />
                             {/*img-fluid para que la imagen se adapte al contenedor*/}

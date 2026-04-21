@@ -1,6 +1,6 @@
 /* Imagen Principal*/
 .main-image {
-    height: 400px;
+    height: 550px;
     background-color: white;
     border-radius: 10px;
     display: flex;
@@ -49,4 +49,16 @@
     vertical-align: middle;
     margin-bottom: 2px;
     margin-right: 5px;
+}
+
+.benefit-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease;
 }

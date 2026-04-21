@@ -15,7 +15,7 @@ const CustomNavbar = () => {
         if (e.key === "Enter") {
             e.preventDefault() /* Evita que la página se recargue */
             if (search.trim() !== "") { /* Evita que la búsqueda se realice sin texto */
-                navigate(`/products?search=${search}`)
+                navigate(`/catalog?search=${search}`)
                 setShowSearch(false) /* Cierra la barra de búsqueda */
                 setSearch("") /* Limpia la barra de búsqueda */
             }
@@ -43,10 +43,10 @@ const CustomNavbar = () => {
 
                         {/* MENÚ CENTRADO */}
                         <Nav className="mx-auto"> {/* mx-auto centra el menú */}
-                            <Nav.Link className='nav-link' as={NavLink} to="/products">Productos</Nav.Link>
-                            <Nav.Link className='nav-link' as={NavLink} to="/accesorios">Accesorios</Nav.Link>
-                            <Nav.Link className='nav-link' as={NavLink} to="/novedades">Novedades</Nav.Link>
-                            <Nav.Link className='nav-link' as={NavLink} to="/ofertas" style={{ color: 'rgba(254, 30, 30, 1)' }}>Ofertas</Nav.Link>
+                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/productos">Productos</Nav.Link>
+                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/accesorios">Accesorios</Nav.Link>
+                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/novedades">Destacados</Nav.Link>
+                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/ofertas" style={{ color: 'rgba(254, 30, 30, 1)' }}>Ofertas</Nav.Link>
                         </Nav>
 
                         {/* ICONOS DERECHA */}
@@ -69,7 +69,7 @@ const CustomNavbar = () => {
                                 <FaSearch className="search-icon me-2 text-muted" />
                                 <input type="text"
                                     className="form-control border-0"
-                                    placeholder="Buscar productos..."
+                                    placeholder="Buscar en el catálogo..."
                                     autoFocus
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}

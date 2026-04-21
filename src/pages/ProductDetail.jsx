@@ -5,13 +5,12 @@ import { useEffect } from "react";
 import { FaShoppingCart, FaRegHeart } from 'react-icons/fa';
 import { useParams } from "react-router-dom";
 import './ProductDetail.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 function ProductDetail() {
     //Producto
-    const { id } = useParams(); // Obtiene el id del producto de la URL
-    //const id = "TPDGXSgIVAy7kkLhyiUk";
-    console.log(id);
-
+    const { id } = useParams(); // Obtiene el id del producto o accesorio de la URL
     //Variable que almacena el producto
     const [product, setProduct] = useState(null);
     //Variable que detecta si el producto se está cargando
@@ -21,16 +20,27 @@ function ProductDetail() {
     //Variable que almacena la cantidad
     const [quantity, setQuantity] = useState(1);
 
+    //Variables para las opciones de las carcasas
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [selectedModel, setSelectedModel] = useState(null);
+
     useEffect(() => {
         const obtenerProducto = async () => {
             setLoading(true); // Estado de carga
             try {
-                const productDoc = doc(db, "products", id); // Simplificado
+                const productDoc = doc(db, "catalog", id); // Simplificado para que funcione con cualquier id
                 const querySnapshot = await getDoc(productDoc);
 
                 if (querySnapshot.exists()) {
+                    //Obtiene el producto y lo guarda en la variable product
                     setProduct({ id: querySnapshot.id, ...querySnapshot.data() });
 
+                    //Si el producto tiene opciones, selecciona la primera opción por defecto. Esto es para que no de error al cargar la página.
+                    if (data.options && data.options.length > 0) {
+                        //Variables para las opciones de las carcasas
+                        setSelectedColor(product.options[0].color[0]);
+                        setSelectedModel(product.options[0].model[0]);
+                    }
                 } else {
                     console.log("No such product!");
                 }
@@ -41,7 +51,7 @@ function ProductDetail() {
             }
         }
         obtenerProducto();
-    }, [id])
+    }, [id]) // [id] hace que la función se ejecute cada vez que el id cambia
 
     if (loading) {
         return <div className="container py-5 text-center">Cargando producto...</div>
@@ -56,7 +66,7 @@ function ProductDetail() {
         <div className="container py-5">
             <div className="row ">
                 {/* Izquierda: Imagenes */}
-                <div className="col-md-6">
+                <div className="col-lg-8 col-md-7">
                     <div className="main-image">
                         {/* Verificamos si product.image y url existen antes de acceder */}
                         {product.image && product.image.length > 0 ? (
@@ -75,16 +85,15 @@ function ProductDetail() {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 {/* Derecha: Info */}
-                <div className="col-md-6">
+                <div className="col-lg-4 col-md-5">
                     <small className="text-muted">{product.brand}</small>
                     <h2 className="mt-2">{product.name}</h2>
                     {/* RATING */}
 
                     {/* PRECIO */}
-                    <div className="d-flex align-items-center gap-2 mb-3">
+                    <div className="d-flex align-items-center justify-content-end gap-2 mb-3 ">
                         <h3 className="d-inline">{product.price}€</h3>
                         {product.oldPrice == 0 ? (
                             <></>
@@ -92,16 +101,56 @@ function ProductDetail() {
                             <span className="text-decoration-line-through text-muted">{product.oldPrice}€</span>
                         )}
                     </div>
+                    {/* SELECTOR DE MODELO */}
+                    {product.category === "Carcasas" && (
+                        <div className="option-group">
+                            <label>Tamaño</label>
+                            <select
+                                className="form-select"
+                                value={selectedModel}
+                                onChange={(e) => setSelectedModel(e.target.value)}
+                            >
+                                {product.options.models.map((model) => (
+                                    <option key={model} value={model}>{model}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
+                    {/* SELECTOR DE COLOR */}
+                    {product.category === "Carcasas" && (
+                        <div className="mt-3">
+                            <label>Color: {selectedColor?.name}</label>
+                            <div className="d-flex gap-2 mt-2">
+                                {product.options.colors.map((color) => (
+                                    <button
+                                        key={color.name}
+                                        onClick={() => { setSelectedColor(color); setSelectedImage(color.img) }}
+                                        style={{
+                                            backgroundColor: color.hex,
+                                            width: '30px',
+                                            height: '30px',
+                                            borderRadius: '50%',
+                                            border: selectedColor?.name === color.name ? '3px solid black' : '1px solid #ccc',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.2s ease',
+                                        }}>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     {/* CANTIDAD*/}
-                    <div className="d-flex justify-content-start align-items-center gap-2 mb-3">
+                    <div className="d-flex justify-content-start align-items-center gap-2 my-3">
                         <button className="btn btn-outline-secondary" onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
                         <div className="qty-num ">{quantity}</div>
                         <button className="btn btn-outline-secondary" onClick={() => setQuantity(quantity < product.stock ? quantity + 1 : product.stock)}>+</button>
                         {/* STOCK */}
-                        {product.stock <= 10 ? (
+                        {product.stock <= 5 ? (
                             <small className="text-danger"> {product.stock} unidades disponibles</small>
                         ) : (
-                            <></>
+                            <small className="text-success"> Unidades disponibles</small>
                         )
                         }
                     </div>
@@ -116,9 +165,75 @@ function ProductDetail() {
                         <h4>Descripción</h4>
                         <p className="text-muted">{product.description}</p>
                     </div>
+
+                    {/* Accesorios si son Cables */}
+                    {product.category === "Cables" && (
+                        <div className="mt-4">
+                            <h4>Datos técnicos</h4>
+                            <p className="text-muted">Longitud: {product.length} m</p>
+                            <p className="text-muted">Tipo de entrada: {product.inputType}</p>
+                            <p className="text-muted">Tipo de salida: {product.outputType}</p>
+                        </div>
+                    )}
+                    {/* Accesorios si son Cargadores */}
+                    {product.category === "Cargadores" && (
+                        <div className="mt-4">
+                            <h4>Datos técnicos</h4>
+                            <p className="text-muted">Potencia: {product.power} W</p>
+                            <p className="text-muted">Puertos de salida: {product.outputType.join(', ')}</p> {/* join() separa los puertos con una coma*/}
+                        </div>
+                    )}
+                    {/* Accesorios si son Powerbanks */}
+                    {product.category === "Power Banks" && (
+                        <div className="mt-4">
+                            <h4>Otros datos</h4>
+                            <p className="text-muted">Capacidad: {product.capacity} mAh</p>
+                            <p className="text-muted">Puertos de salida: {product.outputType.join(', ')}</p>
+                            <p className="text-muted">Puertos de entrada: {product.inputType}</p>
+                            <p className="text-muted">Potencia: {product.power} W</p>
+                        </div>
+                    )}
+                    {/* Accesorios si son Carcasas */}
+                    {product.category === "Carcasas" && (
+                        <div className="mt-4">
+                            <h4>Otros datos</h4>
+                            <p className="text-muted">Material: {product.material}</p>
+                        </div>
+                    )}
+
+
+
+                    {/* INFO */}
+                    <div className='row g-2 mt-4'>
+                        <div className="col-6">
+                            <div className="benefit-box">
+                                <i className="bi bi-shield-lock"></i>
+                                <span className="small text-muted">Pago 100% seguro</span>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="benefit-box">
+                                <i className="bi bi-truck"></i>
+                                <span className="small text-muted">Envio en 24-48h</span>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="benefit-box">
+                                <i className="bi bi-arrow-return-left"></i>
+                                <span className="small text-muted">Devoluciones en 30 días</span>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="benefit-box">
+                                <i className="bi bi-star"></i>
+                                <span className="small text-muted">Garantía de 2 años</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

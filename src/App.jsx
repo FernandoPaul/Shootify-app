@@ -1,6 +1,5 @@
 import CustomNavbar from './components/Navbar'
-import Hero from './components/Hero'
-import Products from './pages/Products'
+import Catalog from './pages/Catalog'
 import ProductDetail from './pages/ProductDetail'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NewsletterBanner from './components/NewsletterBanner'
@@ -10,6 +9,7 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import { AuthProvider } from './context/AuthContext'
 import Cart from './pages/Cart'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -17,9 +17,10 @@ function App() {
       <BrowserRouter>
         <CustomNavbar />
         <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog/:type" element={<Catalog />} />
+          <Route path="/catalog/item/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />

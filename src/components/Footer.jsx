@@ -18,7 +18,7 @@ function Footer() {
                     <div className="col-lg-2 mb-4">
                         <h6>TIENDA</h6>
                         <ul className='list-unstyled'>
-                            <li><Link to="/products">Productos</Link></li>
+                            <li><Link to="/catalog">Productos</Link></li>
                             <li><Link to="/accesorios">Accesorios</Link></li>
                             <li><Link to="#">Ofertas</Link></li>
                         </ul>
