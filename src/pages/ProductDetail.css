@@ -44,13 +44,6 @@
     border: 2px solid #007bff;
 }
 
-.btn svg {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 2px;
-    margin-right: 5px;
-}
-
 .benefit-box {
     display: flex;
     align-items: center;

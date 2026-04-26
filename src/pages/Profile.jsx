@@ -53,6 +53,11 @@ function Profile() {
             alert("Hubo un error al actualizar el perfil")
         }
     }
+    // Si entra en el perfil sin estar logueado, redirige al login
+    if (!user) {
+        navigate('/login')
+        return null
+    }
     return (
         <div className='container py-5'>
             <div className='row'>

@@ -1,19 +1,15 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import {
     onAuthStateChanged,
-    GoogleAuthProvider,
     signOut,
     updateProfile,
 } from 'firebase/auth'
 import { doc, getDoc, updateDoc, } from 'firebase/firestore'
 import { auth, db } from '../firebase/config'
 
-// Los imports son librerias que nos ayudan a obtener el perfil del usuario
-
+// Crea el contexto de autenticación
 const AuthContext = createContext()
-const googleProvider = new GoogleAuthProvider()
 
-// Funciona para obtener el perfil del usuario
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
     const [profile, setProfile] = useState(null)
@@ -51,10 +47,15 @@ export function AuthProvider({ children }) {
 
     // Actualizar perfil en Firestore
     const updateUserProfile = async (data) => {
+        // Si el usuario no está autenticado, retorna
         if (!user) return
+        // Crea una referencia al documento del usuario en Firestore
         const ref = doc(db, 'users', user.uid)
+        // Actualiza el perfil en Firestore
         await updateDoc(ref, data)
+        // Actualiza el perfil en el estado local
         setProfile(prev => ({ ...prev, ...data }))
+        // Si el nombre cambia en profile, se actualiza en el usuario autenticado
         if (data.fullName) await updateProfile(user, { displayName: data.fullName })
     }
 

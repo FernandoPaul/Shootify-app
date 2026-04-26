@@ -53,6 +53,8 @@
     /* Para que el texto se muestre en 3 líneas */
     text-overflow: ellipsis;
     /* Para que el texto se muestre en 3 líneas */
+    min-height: 4.5em;
+
 }
 
 /* EFECTOS PARA TODA LA TARJETA*/

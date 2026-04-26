@@ -61,26 +61,25 @@ const CustomNavbar = () => {
                         </div>
 
                     </Navbar.Collapse>
-
-                    {/* BARRA DE BÚSQUEDA - Se muestra cuando se hace clic en el icono de búsqueda */}
-                    {showSearch && (
-                        <div className="search-bar">
-                            <div className="container d-flex align-items-center">
-                                <FaSearch className="search-icon me-2 text-muted" />
-                                <input type="text"
-                                    className="form-control border-0"
-                                    placeholder="Buscar en el catálogo..."
-                                    autoFocus
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    onKeyDown={handleSearch}
-                                />
-                                <FaTimes className="ms-2" onClick={() => setShowSearch(false)} /> {/* Icono de cerrar - Se muestra cuando se hace clic en el icono de búsqueda*/}
-                            </div>
-                        </div>
-                    )}
                 </Container>
             </Navbar>
+            {/* BARRA DE BÚSQUEDA - Se muestra cuando se hace clic en el icono de búsqueda */}
+            {showSearch && (
+                <div className="search-bar">
+                    <div className="container d-flex align-items-center">
+                        <FaSearch className="search-icon me-2 text-muted" />
+                        <input type="text"
+                            className="form-control border-0"
+                            placeholder="Buscar en el catálogo..."
+                            autoFocus
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            onKeyDown={handleSearch}
+                        />
+                        <FaTimes className="ms-2" onClick={() => setShowSearch(false)} /> {/* Icono de cerrar - Se muestra cuando se hace clic en el icono de búsqueda*/}
+                    </div>
+                </div>
+            )}
         </>
     )
 }

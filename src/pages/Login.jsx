@@ -6,9 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 // Iniciar sesion
 function Login() {
-    /* Obtiene el contexto de autenticación
-    const { login, register, loginWithGoogle } = useAuth()
-*/
     // Estado del formulario
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,7 +35,7 @@ function Login() {
         setError('');
         try {
             //try para capturar errores de inicio de sesion
-            await signInWithPopup(auth, new GoogleAuthProvider()); // signInWithPopup es una funcion asincrona que recibe el email y la contraseña
+            await signInWithPopup(auth, new GoogleAuthProvider()); // GoogleAuthProvider es una clase de firebase que proporciona Google como proveedor de autenticación
             console.log("Inicio de sesion exitoso");
             navigate('/profile');
         } catch (error) {

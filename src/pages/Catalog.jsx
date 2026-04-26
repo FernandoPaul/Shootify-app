@@ -8,8 +8,12 @@ import { useEffect } from "react";
 import CategoryFilter from "../components/CategoryFilter";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import PageBanner from "../components/PageBanner";
+import bannerProductos from "../assets/banner_productos.jpg";
+import bannerAccesorios from "../assets/banner_accesorios.jpg";
 
-function Catalog() {
+function Catalog({ limit }) {
+    //Hooks para guardar la información
     const [category, setCategory] = useState("Todos"); // Hook para guardar la categoría seleccionada
     const [products, setProducts] = useState([]); // Hook para guardar los productos
     const [loading, setLoading] = useState(true); // Hook para guardar el estado de carga
@@ -19,12 +23,10 @@ function Catalog() {
     console.log(type);
     const queryParams = new URLSearchParams(location.search); // Obtiene los parámetros de la URL
 
-    //const type = queryParams.get("type"); // Obtiene el type de producto, si no hay, muestra todos
-
-    //const onSale = queryParams.get("onSale"); // Obtiene si esta de oferta un producto muestra todos
     const search = decodeURIComponent(queryParams.get("search") || ""); //decodeURIComponent para decodificar el parámetro de búsqueda, por si tiene espacios o caracteres especiales
+
     //Función para normalizar el texto
-    const normalizar = (texto) => texto
+    const normalizarTexto = (texto) => texto
         ?.toLowerCase()
         ?.normalize("NFD")
         ?.replace(/[\u0300-\u036f]/g, "");
@@ -66,13 +68,6 @@ function Catalog() {
         } else if (type) {
             elegirTipo = product.type?.toLowerCase() === type?.toLowerCase();
         }
-
-
-        /*
-                const elegirTipo =
-                    !type ||
-                    product.type?.toLowerCase() === type?.toLowerCase();
-        */
         //FILTRO POR CATEGORIA
         const elegirCategoria =
             category === "Todos" ||
@@ -80,7 +75,7 @@ function Catalog() {
         //FILTRO POR BUSQUEDA
         const elegirBusqueda =
             !search ||
-            normalizar(product.name).includes(normalizar(search));
+            normalizarTexto(product.name).includes(normalizarTexto(search));
         // Devuelve solo si el producto coincide con la busqueda
         return elegirTipo && elegirCategoria && elegirBusqueda;
     });
@@ -100,32 +95,60 @@ function Catalog() {
         }
     }
 
+    //Limite de productos para la pagina de inicio
+    const productosVisibles = limit ? filtroProductos.slice(0, limit) : filtroProductos;
+    console.log("productos: ", filtroProductos.length)
+    console.log("limit: ", limit)
+
+    // Función para elegir el banner según el tipo
+    const getBanner = () => {
+        switch (type) {
+            case "productos": return { img: bannerProductos, title: "Productos" }
+            case "accesorios": return { img: bannerAccesorios, title: "Accesorios" }
+            case "novedades": return { img: bannerProductos, title: "Destacados" }
+            case "ofertas": return { img: bannerProductos, title: "Ofertas" }
+            default: return null
+        }
+    }
+    const banner = getBanner()
     return (
-        <Container className="py-5">
-            <h2 className="mb-4" >
-                {mostrarTitulo()}</h2>
-            <div className="row g-4 align-items-stretch">
-                <CategoryFilter type={type} currentCategory={category} onCategoryChange={setCategory} />
-                {filtroProductos.length === 0 ? (
-                    <div className="text-center py-5 w-100">
-                        <h5>No se encontraron productos</h5>
-                        {search && (
-                            <p className="text-muted">
-                                No hay resultados para "<strong>{search}</strong>"
-                            </p>
-                        )}
-                        <button className="btn btn-dark mt-3" onClick={() => window.location.href = "/catalog"}>Ver todos los productos</button>
-                    </div>
-                ) : (
-                    // Hace un bucle para cada producto para generar una tarjeta por cada uno 
-                    filtroProductos.map((product) => (
-                        <div key={product.id} className="col-md-6 col-lg-3">
-                            <ProductCard product={product} as={NavLink} to={`/catalog/item/${product.id}`} />
+        <>
+            {/* Banner */}
+            {banner && <PageBanner title={banner.title} image={banner.img} />}
+            <Container className="py-3">
+                <div className="d-flex justify-content-between align-items-center mb-4" >
+                    {/* Boton para ver todos los productos */}
+                    {limit && filtroProductos.length > limit && (
+                        <>
+                            <h2>{mostrarTitulo()}</h2>
+                            <NavLink to="/catalog" className="btn btn-outline-dark btn-sm px-4">Ver todos</NavLink>
+                        </>
+                    )}
+                </div>
+                <div className="row g-4 align-items-stretch">
+                    <CategoryFilter type={type} currentCategory={category} onCategoryChange={setCategory} />
+                    {productosVisibles.length === 0 ? (
+                        <div className="text-center py-5 w-100">
+                            <h5>No se encontraron productos</h5>
+                            {search && (
+                                <p className="text-muted">
+                                    No hay resultados para "<strong>{search}</strong>"
+                                </p>
+                            )}
+                            <button className="btn btn-dark mt-3" onClick={() => window.location.href = "/catalog"}>Ver todos los productos</button>
                         </div>
-                    ))
-                )}
-            </div>
-        </Container>
+                    ) : (
+                        // Hace un bucle para cada producto para generar una tarjeta por cada uno 
+                        productosVisibles.map((product) => (
+                            <div key={product.id} className="col-md-6 col-lg-3">
+                                <ProductCard product={product} as={NavLink} to={`/catalog/item/${product.id}`} alt={`Imagen de ${product.name}`} />
+                            </div>
+                        ))
+                    )}
+                </div>
+
+            </Container>
+        </>
     )
 }
 

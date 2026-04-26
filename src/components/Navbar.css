@@ -69,16 +69,10 @@
 
 /* BARRA DE BÚSQUEDA */
 .search-bar {
-    position: absolute;
-    /* Se posiciona respecto al navbar sticky*/
-    top: 100%;
-    /* Se coloca exactamente donde termina el navbar*/
-    left: 0;
-    /* Para que se quede fijo en la parte superior */
     width: 100%;
     background-color: var(--nav-background);
     border-bottom: 1px solid var(--nav-border);
-    padding: 2px 0;
+    padding: 5px 0;
     animation: slideDown 0.3s ease;
     z-index: 999;
 }

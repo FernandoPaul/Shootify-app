@@ -1,9 +1,12 @@
 import "./Hero.css";
 import HeroImg from "../assets/Gemini_Generated_Hero.png";
 import { Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Hero = () => {
+const Hero = ({ CatalogRef }) => {
+    const handleScrollToCatalog = () => {
+        CatalogRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
     return (
         <section className="hero-section d-flex justify-content-center align-items-center">
             {/* d-flex para que sea flexbox, align-items-center para centrar verticalmente */}
@@ -22,8 +25,8 @@ const Hero = () => {
                         </p>
                         <div className="hero-buttons d-flex gap-3 mb-4">
                             {/* d-flex para que sea flexbox, gap-3 para que haya espacio entre los botones */}
-                            <NavLink to="/catalog" className="btn btn-dark">Ver Catálogo</NavLink>
-                            <NavLink to="/catalog" className="btn btn-dark">Ver Novedades</NavLink>
+                            <button className="btn btn-dark" onClick={handleScrollToCatalog}>Ver Catálogo</button>
+                            <Link to="/catalog" className="btn btn-dark">Ver Novedades</Link>
                         </div>
                         <div className="hero-stats d-flex gap-4">
                             {/* tex-muted para que el texto sea gris */}

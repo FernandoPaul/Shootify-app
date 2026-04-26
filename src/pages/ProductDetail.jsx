@@ -2,7 +2,6 @@ import { useState } from "react";
 import { db } from "../firebase/config";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
-import { FaShoppingCart, FaRegHeart } from 'react-icons/fa';
 import { useParams } from "react-router-dom";
 import './ProductDetail.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -157,8 +156,8 @@ function ProductDetail() {
 
                     {/* BOTÓNES */}
                     <div className="d-grid gap-2">
-                        <button className="btn btn-dark w-100 mb-3"><FaShoppingCart /> Añadir al carrito</button>
-                        <button className="btn btn-outline-dark w-100"><FaRegHeart /> Añadir a favoritos</button>
+                        <button className="btn btn-outline-primary w-100 mb-3"><i className="bi bi-bag-plus-fill"></i> Añadir al carrito</button>
+                        <button className="btn btn-outline-dark w-100 mb-3"><i className="bi bi-heart-fill"></i> Añadir a favoritos</button>
                     </div>
                     {/* DESCRIPCIÓN */}
                     <div className="mt-4">
