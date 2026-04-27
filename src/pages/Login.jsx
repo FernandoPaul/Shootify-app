@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { auth } from "../firebase/config";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { validateEmail, isPasswordValid } from "../utils/validations";
 import '../pages/AuthLoginRegister.css'
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Iniciar sesion
 function Login() {
@@ -11,16 +13,29 @@ function Login() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const navigate = useNavigate();
+
+    // Validaciones
+    const emailValid = email === '' || validateEmail(email)
+    const passwordValid = password === '' || isPasswordValid(password)
+    const formValid = validateEmail(email) && isPasswordValid(password)
+
+    // Estado para mostrar/ocultar contraseñas
+    const [showPassword, setShowPassword] = useState(false);
+
     // Login con Email, handleLogin es una funcion asincrona que recibe el email y la contraseña
     const handleLogin = async () => {
+        if (!formValid) return
         setLoading(true);
         setError('');
+        setSuccess('');
         try {
             //try para capturar errores de inicio de sesion
             await signInWithEmailAndPassword(auth, email, password); // signInWithEmailAndPassword es una funcion asincrona que recibe el email y la contraseña
+            setSuccess('¡Bienvenido de nuevo! Redirigiendo...')
             console.log("Inicio de sesion exitoso");
-            navigate('/profile');
+            setTimeout(() => navigate('/profile'), 1500)
         } catch (error) {
             //catch para capturar errores de inicio de sesion
             setError(fraseFirebaseError(error.code));
@@ -36,8 +51,9 @@ function Login() {
         try {
             //try para capturar errores de inicio de sesion
             await signInWithPopup(auth, new GoogleAuthProvider()); // GoogleAuthProvider es una clase de firebase que proporciona Google como proveedor de autenticación
+            setSuccess('¡Bienvenido de nuevo! Redirigiendo...')
             console.log("Inicio de sesion exitoso");
-            navigate('/profile');
+            setTimeout(() => navigate('/profile'), 1500)
         } catch (error) {
             //catch para capturar errores de inicio de sesion
             setError(fraseFirebaseError(error.code));
@@ -51,7 +67,6 @@ function Login() {
         const map = {
             'auth/user-not-found': 'No existe una cuenta con ese email',
             'auth/wrong-password': 'Contraseña incorrecta',
-            'auth/email-already-in-use': 'Ese email ya está registrado',
             'auth/invalid-email': 'El formato del email no es válido',
             'auth/too-many-requests': 'Demasiados intentos. Espera un momento',
             'auth/invalid-credential': 'Email o contraseña incorrectos',
@@ -66,7 +81,7 @@ function Login() {
                 <h2>Bienvenido de nuevo</h2>
                 {/* GOOGLE */}
                 {/* disable para deshabilitar el boton si esta cargando */}
-                <button className="btn btn-light w-100 mb-3" onClick={handleGoogleLogin} disabled={loading}>
+                <button className="btn btn-light w-100 mb-3 d-flex justify-content-center align-items-center gap-2" onClick={handleGoogleLogin} disabled={loading}>
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4" />
                         <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853" />
@@ -77,35 +92,64 @@ function Login() {
                 </button>
                 <hr />
                 {/* FORMULARIO */}
-                <form action="" >
-                    <label htmlFor="email">Email</label>
+                <form onSubmit={(e) => e.preventDefault()}>
+                    {/* EMAIL */}
+                    <label>Email</label>
                     <input
                         type="email"
                         placeholder="usuario@gmail.com"
-                        className="form-control mb-3"
+                        className={`form-control mb-1 ${email && (emailValid ? 'is-valid' : 'is-invalid')}`}
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete='username'
                     />
+                    {/* Mostrar mensaje de error si el email no es válido */}
+                    {email && !emailValid && (
+                        <div className="text-danger small mb-2">Email no válido</div>
+                    )}
+                    {/* CONTRASEÑA */}
+                    <label>Contraseña</label>
+                    <div className="position-relative mb-1">
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="········"
+                            className={`form-control password-input pe-5 ${password && (passwordValid ? 'is-valid' : 'is-invalid')}`}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            autoComplete='current-password'
+                        />{/* El pe-5 en el input deja espacio para que el icono no tape el texto,
+                            y position-absolute con end-0 lo coloca siempre a la derecha dentro del input. */}
+                        <span
+                            className="position-absolute top-50 translate-middle-y me-3"
+                            style={{ cursor: 'pointer', zIndex: 5, right: '1rem' }}
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
 
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        type="password"
-                        placeholder="········"
-                        className="form-control mb-3"
-                        onChange={(e) => setPassword(e.target.value)}
-                        autoComplete='current-password'
-                    />
-
-                    <button className="btn btn-dark w-100" onClick={handleLogin} disabled={loading}>
-                        {/* disable para deshabilitar el boton si esta cargando */}
-                        {loading ? 'Cargando...' : 'Iniciar sesión'}
+                    {/* BOTÓN */}
+                    <button
+                        type="button"
+                        className="btn btn-dark w-100"
+                        onClick={handleLogin}
+                        disabled={loading || !formValid}
+                    >
+                        {loading ? (
+                            <>
+                                <span className="spinner-border spinner-border-sm me-2" />
+                                Iniciando sesión...
+                            </>
+                        ) : 'Iniciar sesión'}
                     </button>
-                    {/* si hay error mostrarlo */}
-                    {error && <p className="text-danger text-center">{error}</p>}
+
+                    {/* FEEDBACK */}
+                    {error && <p className="text-danger text-center mt-2">{error}</p>}
+                    {success && <p className="text-success text-center mt-2">{success}</p>}
                 </form>
 
                 {/* Toogle mode - Cambiar de estado entre iniciar sesion y registrarse */}
-                <div className="login-toogle text-center mt-3">
+                <div className="text-center mt-3">
                     <p>¿No tienes cuenta? <Link to="/register">Regístrate gratis</Link></p>
                 </div>
             </div>

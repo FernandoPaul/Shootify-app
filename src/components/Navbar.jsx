@@ -43,21 +43,21 @@ const CustomNavbar = () => {
 
                         {/* MENÚ CENTRADO */}
                         <Nav className="mx-auto"> {/* mx-auto centra el menú */}
-                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/productos">Productos</Nav.Link>
-                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/accesorios">Accesorios</Nav.Link>
-                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/novedades">Destacados</Nav.Link>
-                            <Nav.Link className='nav-link' as={NavLink} to="/catalog/ofertas" style={{ color: 'rgba(254, 30, 30, 1)' }}>Ofertas</Nav.Link>
+                            <NavLink className='nav-link' as={NavLink} to="/catalog/productos">Productos</NavLink>
+                            <NavLink className='nav-link' as={NavLink} to="/catalog/accesorios">Accesorios</NavLink>
+                            <NavLink className='nav-link' as={NavLink} to="/catalog/novedades">Destacados</NavLink>
+                            <NavLink className='nav-link' as={NavLink} to="/catalog/ofertas" style={{ color: 'rgba(254, 30, 30, 1)' }}>Ofertas</NavLink>
                         </Nav>
 
                         {/* ICONOS DERECHA */}
                         <div className="d-flex gap-3"> {/* d-flex crea un contenedor flexible, gap-3 crea espacio entre iconos */}
                             <FaSearch className="nav-link-icon" onClick={() => setShowSearch(!showSearch)} />
-                            <Nav.Link as={Link} to={user ? "/profile" : "/login"}>
+                            <NavLink as={Link} to={user ? "/profile" : "/login"}>
                                 <FaUser className="nav-link-icon" />
-                            </Nav.Link>
-                            <Nav.Link as={Link} to="/cart">
+                            </NavLink>
+                            <NavLink as={Link} to="/cart">
                                 <FaShoppingCart className="nav-link-icon" />
-                            </Nav.Link>
+                            </NavLink>
                         </div>
 
                     </Navbar.Collapse>

@@ -1,5 +1,6 @@
 .auth-container {
-    height: 100vh;
+    height: calc(100vh - 100px);
+    /* Descuenta la altura del navbar */
     display: flex;
     justify-content: center;
     align-items: center;
