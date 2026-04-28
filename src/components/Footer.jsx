@@ -29,7 +29,7 @@ function Footer() {
                         <ul className='list-unstyled'>
                             <li><NavLink className='nav-link' as={NavLink} to="/info/sobre-nosotros">Sobre nosotros</NavLink></li>
                             <li><NavLink className='nav-link' as={NavLink} to="/info/terminos-condiciones">Términos y Condiciones</NavLink></li>
-                            <li><NavLink className='nav-link' as={NavLink} to="/info/contacto">Contacto</NavLink></li>
+                            <li><NavLink className='nav-link' as={NavLink} to="/contact">Contacto</NavLink></li>
                         </ul>
                     </div>
                     {/* REDES SOCIALES */}

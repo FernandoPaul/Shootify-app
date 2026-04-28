@@ -24,7 +24,7 @@ function Login() {
     // Estado para mostrar/ocultar contraseñas
     const [showPassword, setShowPassword] = useState(false);
 
-    // Login con Email, handleLogin es una funcion asincrona que recibe el email y la contraseña
+    // Manejador del Login con Email, handleLogin es una funcion asincrona que recibe el email y la contraseña
     const handleLogin = async () => {
         if (!formValid) return
         setLoading(true);
@@ -44,7 +44,7 @@ function Login() {
             setLoading(false);
         }
     }
-    // Login con Google
+    //  Manejador del Login con Google 
     const handleGoogleLogin = async () => {
         setLoading(true);
         setError('');

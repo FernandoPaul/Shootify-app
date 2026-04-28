@@ -31,6 +31,7 @@ function Register() {
     const confirmPasswordValid = confirmPassword === '' || password === confirmPassword
     const formValid = fullName.trim() !== '' && validateEmail(email) && isPasswordValid(password) && password === confirmPassword && acceptTermes
 
+    // Manejador del Registro Manual
     const handleRegister = async () => {
         //Si el formulario no es valido, no hacer nada
         if (!formValid) return
@@ -62,7 +63,7 @@ function Register() {
             setLoading(false)
         }
     }
-    //Registro con Google
+    // Manejador del Registro con Google
     const handleGoogleLogin = async () => {
         setLoading(true);
         setError('');

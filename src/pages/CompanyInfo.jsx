@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { companyInfo } from "../data/companyInfo";
 
+
 function CompanyInfo() {
     // Obtiene el slug de la URL - parte final de la URL 
     const { slug } = useParams();
