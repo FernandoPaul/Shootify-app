@@ -10,6 +10,7 @@ import Profile from './pages/Profile'
 import { AuthProvider } from './context/AuthContext'
 import Cart from './pages/Cart'
 import Home from './pages/Home'
+import CompanyInfo from './pages/CompanyInfo'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path='/info/:slug' element={<CompanyInfo />}></Route>
         </Routes>
         <NewsletterBanner />
         <Footer />

@@ -7,7 +7,6 @@ function Footer() {
         <footer className="footer py-3">
             <div className="container d-flex">
                 <div className="row w-100">
-
                     {/* IZQUIERDA */}
                     <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
                         <h4 className='fw-bold'>SHOOTIFY</h4>
@@ -24,13 +23,13 @@ function Footer() {
                             <li><NavLink className='nav-link' as={NavLink} to="/catalog/ofertas">Ofertas</NavLink></li>
                         </ul>
                     </div>
-                    {/* CONTACTO */}
+                    {/* INFORMACIÓN */}
                     <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
-                        <h6>CONTACTO</h6>
+                        <h6>INFORMACIÓN</h6>
                         <ul className='list-unstyled'>
-                            <li><a href="#">Correo electrónico</a></li>
-                            <li><a href="#">Teléfono</a></li>
-                            <li><a href="#">Dirección</a></li>
+                            <li><NavLink className='nav-link' as={NavLink} to="/info/sobre-nosotros">Sobre nosotros</NavLink></li>
+                            <li><NavLink className='nav-link' as={NavLink} to="/info/terminos-condiciones">Términos y Condiciones</NavLink></li>
+                            <li><NavLink className='nav-link' as={NavLink} to="/info/contacto">Contacto</NavLink></li>
                         </ul>
                     </div>
                     {/* REDES SOCIALES */}
@@ -43,9 +42,7 @@ function Footer() {
                             <li><a href="https://x.com/?lang=es" target="_blank"><FaTwitter style={{ width: '14px', height: '14px' }} /> Twitter</a></li>
                         </ul>
                     </div>
-
                 </div>
-
             </div>
             {/*ABAJO*/}
             <div className="copy-right">
