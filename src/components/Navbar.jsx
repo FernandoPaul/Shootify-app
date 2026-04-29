@@ -3,11 +3,14 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 import { FaSearch, FaUser, FaShoppingCart, FaTimes } from 'react-icons/fa'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useCart } from '../context/CartContext'
 import './Navbar.css'
 
 const CustomNavbar = () => {
+    // Variables mostrar buscador, usuario y carrito
     const [showSearch, setShowSearch] = useState(false)
     const { user } = useAuth()
+    const { cartCount } = useCart()
     const [search, setSearch] = useState("")
     const navigate = useNavigate()
 
@@ -55,11 +58,17 @@ const CustomNavbar = () => {
                             <NavLink as={Link} to={user ? "/profile" : "/login"}>
                                 <FaUser className="nav-link-icon" />
                             </NavLink>
-                            <NavLink as={Link} to="/cart">
+                            <NavLink as={Link} to="/cart" className="position-relative d-inline-flex">
                                 <FaShoppingCart className="nav-link-icon" />
+                                {cartCount > 0 && (
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.6rem' }}>
+                                        {/* si hay más de 99 productos, muestra 99+, si no, muestra la cantidad de productos */}
+                                        {cartCount > 99 ? '99+' : cartCount}
+                                    </span>
+                                )}
+                                {console.log("Numero de productos en el carrito: ", cartCount)}
                             </NavLink>
                         </div>
-
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

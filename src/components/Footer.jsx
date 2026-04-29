@@ -8,14 +8,14 @@ function Footer() {
             <div className="container d-flex">
                 <div className="row w-100">
                     {/* IZQUIERDA */}
-                    <div class="col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-6 col-md-12 col-sm-12 mb-3">
                         <h4 className='fw-bold'>SHOOTIFY</h4>
                         <p className='text-muted'>Productos y accesorios para fotografía y vídeo</p>
                     </div>
                     {/* DERECHA */}
 
                     {/* TIENDA */}
-                    <div class="col-lg-2 col-md-4 col-sm-12 mb-3">
+                    <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
                         <h6>TIENDA</h6>
                         <ul className='list-unstyled'>
                             <li><NavLink className='nav-link' as={NavLink} to="/catalog/productos">Productos</NavLink></li>
