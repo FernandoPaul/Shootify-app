@@ -1,23 +1,28 @@
 /* FOOTER */
 .footer {
+    background-color: #000;
     font-size: 13px;
-    color: #888;
+    color: #ffffff;
+}
+
+.footer p {
+    color: #ffffff;
 }
 
 .footer a {
-    color: #888;
+    color: #b8b8b8;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .footer a:hover {
-    color: #111;
+    color: #ffffff !important;
 }
 
 .copy-right {
     max-width: 1280px;
     margin: 0 auto;
-    border-top: 1px solid #deded9;
-    color: #bbb;
+    border-top: 1px solid #888;
+    color: #888;
     font-size: 12px;
 }

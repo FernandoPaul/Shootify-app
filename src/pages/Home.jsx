@@ -9,7 +9,9 @@ const Home = () => {
         <>
             <Hero CatalogRef={CatalogRef} />
             <div ref={CatalogRef}>
-                <Catalog limit={4} />{/* Muestra 8 productos del catalogo */}
+                <Catalog type="productos" limit={4} />{/* Muestra 4 productos del catalogo Productos*/}
+                <Catalog type="accesorios" limit={4} />{/* Muestra 4 productos del catalogo Accesorios*/}
+
             </div>
         </>
     )

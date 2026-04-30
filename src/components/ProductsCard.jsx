@@ -16,13 +16,12 @@ function ProductCard({ product }) {
     };
 
     return (
-        <div className='card product-card border-0' onClick={handleCardClick} >
+        <div className='card product-card ' onClick={handleCardClick} >
             {/* border-0 para que no tenga borde */}
             {/* PARTE SUPERIOR */}
-            <div className={`product-image ${product.oferta ? 'oferta' : ''}`}>
+            <div className={`product-image ${product.onSale ? 'oferta' : ''}`}>
                 {/* BADGE SOLO SI HAY OFERTA */}
-                {product.oferta && (<span className='badge bg-warning text-dark position-absolute m-2'>OFERTA</span>)}
-
+                {product.onSale && (<span className='badge bg-danger text-light position-absolute start-0 top-0 m-2'>OFERTA</span>)}
                 <div className='icon-placeholder'>
                     <img src={product.image[0]} alt={product.name} className='img-fluid' />
                 </div>
@@ -32,7 +31,6 @@ function ProductCard({ product }) {
             <div className='card-body'>
                 <small className='text-muted'>{product.brand}</small>
                 <h5 className='product-title mt-1 '>{product.name}</h5>
-                <small className='text-muted mb-2 product-description'>{product.description}</small>
                 <div className='d-flex justify-content-between ms-2'>
                     <div>
                         <strong>{product.price}€</strong>
@@ -44,9 +42,11 @@ function ProductCard({ product }) {
                             </small>
                         )}
                     </div>
-                    <button className='btn btn-light border' onClick={handleAddToCart}>
-                        <FaPlus />
-                    </button>
+                    <div className=''>
+                        <button className='btn btn-primary border-0 ' onClick={handleAddToCart}>
+                            <FaPlus />
+                        </button>
+                    </div>
                 </div>
             </div>
 

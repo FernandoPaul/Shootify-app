@@ -1,23 +1,27 @@
 import "./Hero.css";
-import HeroImg from "../assets/Gemini_Generated_Hero.png";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Hero = ({ CatalogRef }) => {
+    // URL de la img
+    const heroImg = new URL("https://firebasestorage.googleapis.com/v0/b/ecommerce-app-9dc42.firebasestorage.app/o/hero1.png?alt=media&token=3f45388b-5b97-4523-ac31-fa704eb5ce3d")
+
+    // Manejador del scroll hacia el catálogo
     const handleScrollToCatalog = () => {
         CatalogRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
     return (
         <section className="hero-section d-flex justify-content-center align-items-center">
             {/* d-flex para que sea flexbox, align-items-center para centrar verticalmente */}
-            <Container className="hero-container py-5">
+            <Container className="hero-container py-1">
                 <div className="row align-items-center"> {/* align-items-center para centrar verticalmente */}
                     {/* Texto izquierda */}
                     <div className="hero-left col-lg-6 col-md-6 col-sm-12"> {/* col-lg-6 para que ocupe la mitad de la pantalla en pantallas grandes */}
-                        <span className="badge bg-black text-white mb-3">NUEVO 2026</span>
+                        <span className="badge bg-black text-white p-3 mb-3">✨ NUEVO 2026</span>
                         <h1 className="hero-title">
                             ELEVA TU <br />
-                            <span>CONTENIDO</span> <br />
+                            <span className="text-primary">CONTENIDO</span> <br />
                             MÓVIL</h1>
                         <p className="hero-descripcion text-muted mb-4"> {/* text-muted para que el texto sea gris */}
                             Accesorios profesionales para iPhone, Samsung y más.
@@ -26,7 +30,7 @@ const Hero = ({ CatalogRef }) => {
                         <div className="hero-buttons d-flex gap-3 mb-4">
                             {/* d-flex para que sea flexbox, gap-3 para que haya espacio entre los botones */}
                             <button className="btn btn-dark" onClick={handleScrollToCatalog}>Ver Catálogo</button>
-                            <Link to="/catalog" className="btn btn-dark">Ver Novedades</Link>
+                            <Link to="/catalog" className="btn btn-outline-dark">Ver Novedades</Link>
                         </div>
                         <div className="hero-stats d-flex gap-4">
                             {/* tex-muted para que el texto sea gris */}
@@ -36,9 +40,9 @@ const Hero = ({ CatalogRef }) => {
                         </div>
                     </div>
                     {/* Imagen derecha */}
-                    <div className="col-lg-6 col-md-6  text-center ">
-                        <div className="img-hero mx-auto">
-                            <img src={HeroImg} alt="hero prueba" className="img-fluid" />
+                    <div className="col-lg-6 col-md-6 align-items-center justify-content-center">
+                        <div className="img-hero d-flex justify-content-center px-2">
+                            <img src={heroImg} alt="imagen de ejemplo de accesorios para moviles" className="img-fluid " />
                             {/*img-fluid para que la imagen se adapte al contenedor*/}
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 
 import { validateEmail, isPasswordValid } from "../utils/validations";
 import '../pages/AuthLoginRegister.css'
 import { Link, useNavigate } from "react-router-dom";
+import PasswordRules from "../components/PasswordRules";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Iniciar sesion
@@ -18,8 +19,7 @@ function Login() {
 
     // Validaciones
     const emailValid = email === '' || validateEmail(email)
-    const passwordValid = password === '' || isPasswordValid(password)
-    const formValid = validateEmail(email) && isPasswordValid(password)
+    const formValid = validateEmail(email)
 
     // Estado para mostrar/ocultar contraseñas
     const [showPassword, setShowPassword] = useState(false);
@@ -65,11 +65,11 @@ function Login() {
     // Frases para gestionar errores FIREBASE
     const fraseFirebaseError = (code) => {
         const map = {
-            'auth/user-not-found': 'No existe una cuenta con ese email',
+            'auth/invalid-credential': 'Email o contraseña incorrectos',
             'auth/wrong-password': 'Contraseña incorrecta',
             'auth/invalid-email': 'El formato del email no es válido',
             'auth/too-many-requests': 'Demasiados intentos. Espera un momento',
-            'auth/invalid-credential': 'Email o contraseña incorrectos',
+
         }
         return map[code] || 'Ha ocurrido un error. Inténtalo de nuevo'
     }
@@ -112,8 +112,8 @@ function Login() {
                     <div className="position-relative mb-1">
                         <input
                             type={showPassword ? 'text' : 'password'}
-                            placeholder="········"
-                            className={`form-control password-input pe-5 ${password && (passwordValid ? 'is-valid' : 'is-invalid')}`}
+                            placeholder="********"
+                            className={`form-control password-input pe-5`}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete='current-password'

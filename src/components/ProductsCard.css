@@ -27,6 +27,10 @@
 }
 
 /* ZONA INFERIOR */
+.card-body {
+    background-color: #e7f1ff;
+}
+
 .product-title {
     display: -webkit-box;
     /* Limita el texto a 2 líneas */
@@ -38,7 +42,7 @@
     /* Para que el texto se muestre en 2 líneas */
     text-overflow: ellipsis;
     /* Para que el texto se muestre en 2 líneas */
-    min-height: 3em;
+    min-height: 2.5em;
     /* Forzamos una altura uniforme */
 }
 
@@ -53,7 +57,7 @@
     /* Para que el texto se muestre en 3 líneas */
     text-overflow: ellipsis;
     /* Para que el texto se muestre en 3 líneas */
-    min-height: 4.5em;
+    min-height: 3em;
 
 }
 
@@ -62,13 +66,14 @@
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
-    background: #fff;
-    border: 1px solid #eee;
+    background: #fdfdfd;
+    border: 1px solid #000000;
 }
 
 /* Al pasar el ratón por encima de la tarjeta, se eleva 5px y se le añade una sombra */
 .product-card:hover {
     transform: translateY(-5px);
+    /* 0 para arriba, 10px a la derecha, 20px de desenfoque y rgba para el color*/
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -79,12 +84,5 @@
 
 /* El badge se posiciona sobre la imagen */
 .badge {
-    top: 10px;
-    left: 10px;
     z-index: 10;
-}
-
-/* COLORES DIFERENTES PARA OFERTA */
-.product-image.oferta {
-    background-color: #fffaf0;
 }

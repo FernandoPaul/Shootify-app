@@ -11,16 +11,16 @@ import { useParams } from "react-router-dom";
 import PageBanner from "../components/PageBanner";
 import bannerProductos from "../assets/banner_productos.jpg";
 import bannerAccesorios from "../assets/banner_accesorios.jpg";
-
-function Catalog({ limit }) {
+function Catalog({ limit, type: typeFromProps }) {
+    const { type: typeFromParams } = useParams();
+    const type = typeFromProps || typeFromParams; // Obtiene el tipo de producto de las props o de los parámetros de la URL
+    //console.log("tipo: ", type);
     //Hooks para guardar la información
     const [category, setCategory] = useState("Todos"); // Hook para guardar la categoría seleccionada
     const [products, setProducts] = useState([]); // Hook para guardar los productos
     const [loading, setLoading] = useState(true); // Hook para guardar el estado de carga
 
     const location = useLocation(); // Hook para obtener la ubicación actual
-    const { type } = useParams(); // Obtiene el type de la URL
-    console.log(type);
     const queryParams = new URLSearchParams(location.search); // Obtiene los parámetros de la URL
 
     const search = decodeURIComponent(queryParams.get("search") || ""); //decodeURIComponent para decodificar el parámetro de búsqueda, por si tiene espacios o caracteres especiales
@@ -47,7 +47,8 @@ function Catalog({ limit }) {
         };
         obtenerProductos();
         //Se ejecuta cada vez que cambia el search o la location.search
-    }, [search, location.search]); //search y location.search se actualizan cuando cambia el search o la location.search
+    }, [search, location.search, type]); // type se agrega para que se actualice cuando cambia el tipo de producto
+    //search y location.search se actualizan cuando cambia el search o la location.search
 
     //Si no hay productos, muestra un mensaje de carga
     if (loading) {
@@ -65,7 +66,7 @@ function Catalog({ limit }) {
             elegirTipo = product.featured === true;
         } else if (type === "ofertas") {
             elegirTipo = product.onSale === true;
-        } else if (type) {
+        } else if (type && type !== "Todos") { // Si el tipo no es Todos, filtra por tipo
             elegirTipo = product.type?.toLowerCase() === type?.toLowerCase();
         }
         //FILTRO POR CATEGORIA
@@ -97,9 +98,9 @@ function Catalog({ limit }) {
 
     //Limite de productos para la pagina de inicio
     const productosVisibles = limit ? filtroProductos.slice(0, limit) : filtroProductos;
-    console.log("productos: ", filtroProductos.length)
+    console.log("Filtro productos: ", filtroProductos.length)
     console.log("limit: ", limit)
-
+    console.log("type: ", type)
     // Función para elegir el banner según el tipo
     const getBanner = () => {
         switch (type) {
@@ -113,15 +114,15 @@ function Catalog({ limit }) {
     const banner = getBanner()
     return (
         <>
-            {/* Banner */}
-            {banner && <PageBanner title={banner.title} image={banner.img} />}
+            {/* Banner solo si no se pasa el limite, es decir, si no estamos en la pagina principal Home */}
+            {banner && !limit && <PageBanner title={banner.title} image={banner.img} />}
             <Container className="py-3">
                 <div className="d-flex justify-content-between align-items-center mb-4" >
                     {/* Boton para ver todos los productos */}
-                    {limit && filtroProductos.length > limit && (
+                    {limit && (
                         <>
                             <h2>{mostrarTitulo()}</h2>
-                            <NavLink to="/catalog" className="btn btn-outline-dark btn-sm px-4">Ver todos</NavLink>
+                            <NavLink to={`/catalog/${type?.toLowerCase() || ""}`} className="btn btn-outline-dark btn-sm px-4">Ver todos</NavLink>
                         </>
                     )}
                 </div>

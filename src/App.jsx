@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { CartProvider } from './context/CartContext'
-import NewsletterBanner from './components/NewsletterBanner'
+import NewsLetterBanner from './components/NewsLetterBanner'
 import Footer from './components/Footer'
 import CustomNavbar from './components/Navbar'
 import Home from './pages/Home'
@@ -14,6 +14,7 @@ import Catalog from './pages/Catalog'
 import CompanyInfo from './pages/CompanyInfo'
 import ProductDetail from './pages/ProductDetail'
 import ScrollToTop from './components/ScrollToTop'
+import './styles/global.css'
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
             <Route path='/info/:slug' element={<CompanyInfo />}></Route>
             <Route path='/contact' element={<Contact />}></Route>
           </Routes>
-          <NewsletterBanner />
+          <NewsLetterBanner />
           <Footer />
         </BrowserRouter>
       </CartProvider>

@@ -1,9 +1,21 @@
 .hero-section {
     background-color: #f5f5f5;
-    height: 90vh;
+    height: 75vh;
     /* 90% de la altura de la pantalla */
-
+    overflow: hidden;
+    /* Oculta cualquier contenido que se desborde del contenedor */
+    /* Imagen de fondo 
+    background-image: url('../assets/hero2.png');
+    /* Tamaño de la imagen de fondo - cover: cubre todo el contenedor, contain: muestra la imagen completa, auto: tamaño original 
+    background-size: cover;
+    /* Posición de la imagen de fondo 
+    background-position: center;
+    /* Evita que la imagen se repita 
+    background-repeat: no-repeat;
+    */
 }
+
+.hero-container {}
 
 /* TITULO */
 .hero-title {
@@ -12,15 +24,17 @@
     line-height: 1.1;
 }
 
-/* CONTENIDO con borde tipo imagen */
-.hero-title span {
-    color: #509af5;
+.img-hero img {
+    object-fit: contain;
+    height: auto;
+    width: 100%;
+    border-radius: 15px;
 }
 
 /* RESPONSIVE */
 /* Para tablets */
 @media (max-width: 768px) {
-    .img-hero {
+    .img-hero img {
         display: none;
         /* No aparezca la imagen en tablets */
     }
@@ -32,7 +46,7 @@
         height: 70vh;
     }
 
-    .img-hero {
+    .img-hero img {
         /*No aparezca la imagen en móviles*/
         display: none;
     }

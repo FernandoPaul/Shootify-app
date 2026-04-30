@@ -27,7 +27,7 @@ const CustomNavbar = () => {
 
     return (
         <>
-            <div className="nav-anuncio">
+            <div className="nav-anuncio bg-dark text-white text-center py-2">
                 <span>🎯 Envío gratis en pedidos superiores a 49€ &nbsp;·&nbsp; Devoluciones gratuitas 30 días</span>
             </div>
 
