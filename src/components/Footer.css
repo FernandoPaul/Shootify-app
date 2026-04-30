@@ -9,16 +9,18 @@
     color: #ffffff;
 }
 
+.footer li,
 .footer a {
-    color: #b8b8b8;
-    text-decoration: none;
+    color: #b8b8b8 !important;
+    text-decoration: none !important;
     transition: color 0.2s;
 }
 
 .footer a:hover {
-    color: #ffffff !important;
+    color: #f8f9fa !important;
 }
 
+/* COPY RIGHT */
 .copy-right {
     max-width: 1280px;
     margin: 0 auto;

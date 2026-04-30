@@ -1,8 +1,10 @@
 .contact-page {
-    background-color: #e8e8e8ff;
+    background-color: #f8f9fa;
     min-height: auto;
     color: #1a1a1a;
     border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .contact-title {

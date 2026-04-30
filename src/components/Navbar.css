@@ -3,7 +3,9 @@
     /* Color gris muy claro */
     --nav-hover: rgba(0, 0, 0, 0.05);
     --nav-text: #1a1a1a;
-    --nav-text-hover: black;
+    --nav-text-active: #0d6efd;
+    --nav-icon: #1a1a1a;
+    --nav-text-hover: ;
     --nav-border: #deded9;
 }
 
@@ -37,13 +39,20 @@
 /* ENLACES DEL MENÚ */
 .nav-link {
     font-weight: 500;
-    color: var(--nav-text);
+    color: var(--nav-text) !important;
     cursor: pointer;
 }
 
 /* ENLACES DEL MENÚ AL PASAR EL RATÓN */
 .nav-link:hover {
-    color: var(--nav-text-hover) !important;
+    color: var(--nav-text-active) !important;
+    background-color: var(--nav-hover) !important;
+    border-radius: 5px;
+
+}
+
+.nav-link.active {
+    color: var(--nav-text-active) !important;
     background-color: var(--nav-hover) !important;
     border-radius: 5px;
 }
@@ -51,14 +60,14 @@
 /* ICONOS */
 .nav-link-icon {
     font-size: 26px;
-    color: var(--nav-text);
+    color: var(--nav-icon);
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .nav-link-icon:hover {
-    color: var(--nav-text-hover) !important;
+    color: var(--nav-text-active) !important;
     background-color: var(--nav-hover) !important;
     border-radius: 5px;
 }
@@ -88,7 +97,7 @@
 }
 
 .search-bar input:focus {
-    background-color: var(--nav-background);
+    background-color: var(--nav-hover);
     box-shadow: none;
     border-color: transparent;
     outline: none;

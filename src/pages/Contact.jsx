@@ -46,7 +46,9 @@ function Contact() {
                                 <textarea className="form-control contact-input" name="message" placeholder="Mensaje" rows={8} value={form.message} onChange={handleChange} required></textarea>
                             </div>
                         </div>
-                        <button type="submit" className="btn contact-btn mt-2 px-4">Enviar</button>
+                        <div className="text-center">
+                            <button type="submit" className="btn contact-btn mt-2 px-4">Enviar</button>
+                        </div>
                     </form>
                     {/* INFORMACION */}
                     <div className="col-md-3" >

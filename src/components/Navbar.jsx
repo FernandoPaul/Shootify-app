@@ -30,26 +30,25 @@ const CustomNavbar = () => {
             <div className="nav-anuncio bg-dark text-white text-center py-2">
                 <span>🎯 Envío gratis en pedidos superiores a 49€ &nbsp;·&nbsp; Devoluciones gratuitas 30 días</span>
             </div>
-
             <Navbar bg="light" variant="light" expand="lg" sticky='top' className="shadow-sm py-3">
                 {/* shadow-sm para que tenga una sombra suave, py-3 para que tenga un padding vertical*/}
                 <Container> {/* Contenedor principal - Centra el contenido, margenes automáticos*/}
                     {/* LOGO */}
                     <Navbar.Brand as={Link} to="/">
-                        <strong>SHOOTIFY</strong>
+                        <h1 className='fw-bolder text-black'>SHOOTIFY</h1>
                     </Navbar.Brand>
 
                     {/* BOTÓN MÓVIL - Se muestra en pantallas pequeñas */}
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
+                    {/* MENU COLLAPSE - Se muestra en pantallas grandes */}
                     <Navbar.Collapse id="basic-navbar-nav">
 
                         {/* MENÚ CENTRADO */}
                         <Nav className="mx-auto"> {/* mx-auto centra el menú */}
-                            <NavLink className='nav-link' as={NavLink} to="/catalog/productos">Productos</NavLink>
-                            <NavLink className='nav-link' as={NavLink} to="/catalog/accesorios">Accesorios</NavLink>
-                            <NavLink className='nav-link' as={NavLink} to="/catalog/novedades">Destacados</NavLink>
-                            <NavLink className='nav-link' as={NavLink} to="/catalog/ofertas" style={{ color: 'rgba(254, 30, 30, 1)' }}>Ofertas</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/productos">Productos</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/accesorios">Accesorios</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/novedades">Destacados</NavLink>
+                            <NavLink className='nav-link fw-bold text-danger' as={NavLink} to="/catalog/ofertas" >Ofertas</NavLink>
                         </Nav>
 
                         {/* ICONOS DERECHA */}

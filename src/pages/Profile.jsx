@@ -37,6 +37,17 @@ function Profile() {
         )
     }, [profile, user])
 
+    // Mostrar iniciales del nombre y apellido en caso de no tener foto de perfil
+    const getInitials = (fullName) => {
+        if (!fullName) return "👤";
+        const names = fullName.split(" ");
+        if (names.length > 1) {
+            return `${names[0][0]}${names[1][0]}`.toUpperCase();
+        }
+        return names[0][0].toUpperCase();
+    }
+
+    console.log(getInitials(profile?.fullName))
     //Cerrar sesion
     const handleLogout = async () => {
         await logout()
@@ -59,25 +70,37 @@ function Profile() {
         return null
     }
     return (
-        <div className='container py-5'>
+        <div className='container py-3'>
             <div className='row'>
                 {/* SIDEBAR */}
-                <div className='col-lg-3'>
+                <aside className='col-lg-3'>
                     <div className='profile-sidebar'>
                         <div className='text-center mb-3'>
-                            <div className='avatar'>👤</div>
-                            <h5>{user?.displayName}</h5>
+                            <div className='avatar-container mx-auto mb-3'>
+                                {user?.photoURL ? (
+                                    <img
+                                        src={user.photoURL}
+                                        alt="Perfil"
+                                        className="avatar-img"
+                                    />
+                                ) : (
+                                    <div className="avatar-initials">
+                                        {getInitials(user?.displayName)}
+                                    </div>
+                                )}
+                            </div>
+                            <h5 className='fw-bold'>{user?.displayName}</h5>
                             <p className='text-muted small'>{user?.email}</p>
                         </div>
-                        <button className='btn btn-outline-danger w-100 mt-3' onClick={handleLogout}>
+                        <button className='btn btn-danger w-100 mt-3' onClick={handleLogout}>
                             Cerrar sesión
                         </button>
                     </div>
-                </div>
+                </aside>
                 {/* CONTENIDO */}
                 <div className='col-lg-9'>
                     {/* Datos personales */}
-                    <div className='profile-content'>
+                    <div className='profile-content mb-3 p-4'>
                         <h3>Datos personales</h3>
                         <p className='text-muted small'>Actualiza tu información personal</p>
                         <div className='row'>
