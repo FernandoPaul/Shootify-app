@@ -31,7 +31,7 @@ function ProductCard({ product }) {
             <div className='card-body'>
                 <small className='text-muted'>{product.brand}</small>
                 <h5 className='product-title mt-1 '>{product.name}</h5>
-                <div className='d-flex justify-content-between ms-2'>
+                <div className='d-flex align-items-center justify-content-between'>
                     <div>
                         <strong>{product.price}€</strong>
                         {product.oldPrice == 0 ? (
