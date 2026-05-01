@@ -1,6 +1,6 @@
 :root {
     --body-background-color: #F5F6F7;
-    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family: ;
 }
 
 html {
@@ -10,9 +10,11 @@ html {
 body {
     margin: 0;
     padding: 0;
-    font-family: var(--font-family) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--body-background-color);
     /* Color gris claro */
+    overflow-x: hidden;
+    /* Esto evita las barras de scroll horizontales */
 }
 
 a {

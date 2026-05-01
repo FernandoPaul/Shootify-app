@@ -13,7 +13,8 @@ const CustomNavbar = () => {
     const { cartCount } = useCart()
     const [search, setSearch] = useState("")
     const navigate = useNavigate()
-
+    // Variable para controlar el menu colapsable en movil
+    const [expanded, setExpanded] = useState(false)
     const handleSearch = (e) => {
         if (e.key === "Enter") {
             e.preventDefault() /* Evita que la página se recargue */
@@ -30,7 +31,7 @@ const CustomNavbar = () => {
             <div className="nav-anuncio bg-dark text-white text-center py-2">
                 <span>🎯 Envío gratis en pedidos superiores a 49€ &nbsp;·&nbsp; Devoluciones gratuitas 30 días</span>
             </div>
-            <Navbar bg="light" variant="light" expand="lg" sticky='top' className="shadow-sm py-3">
+            <Navbar expanded={expanded} onToggle={() => setExpanded(!expanded)} bg="light" variant="light" expand="lg" sticky='top' className="shadow-sm py-3">
                 {/* shadow-sm para que tenga una sombra suave, py-3 para que tenga un padding vertical*/}
                 <Container> {/* Contenedor principal - Centra el contenido, margenes automáticos*/}
                     {/* LOGO */}
@@ -39,25 +40,25 @@ const CustomNavbar = () => {
                     </Navbar.Brand>
 
                     {/* BOTÓN MÓVIL - Se muestra en pantallas pequeñas */}
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Toggle onClick={() => setExpanded(!expanded)} aria-controls="basic-navbar-nav" />
                     {/* MENU COLLAPSE - Se muestra en pantallas grandes */}
                     <Navbar.Collapse id="basic-navbar-nav">
 
                         {/* MENÚ CENTRADO */}
                         <Nav className="mx-auto"> {/* mx-auto centra el menú */}
-                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/productos">Productos</NavLink>
-                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/accesorios">Accesorios</NavLink>
-                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/novedades">Destacados</NavLink>
-                            <NavLink className='nav-link fw-bold text-danger' as={NavLink} to="/catalog/ofertas" >Ofertas</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/productos" onClick={() => setExpanded(false)}>Productos</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/accesorios" onClick={() => setExpanded(false)}>Accesorios</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/novedades" onClick={() => setExpanded(false)}>Destacados</NavLink>
+                            <NavLink className='nav-link fw-bold text-danger' as={NavLink} to="/catalog/ofertas" onClick={() => setExpanded(false)}>Ofertas</NavLink>
                         </Nav>
 
                         {/* ICONOS DERECHA */}
                         <div className="d-flex gap-3"> {/* d-flex crea un contenedor flexible, gap-3 crea espacio entre iconos */}
-                            <FaSearch className="nav-link-icon" onClick={() => setShowSearch(!showSearch)} />
-                            <NavLink as={Link} to={user ? "/profile" : "/login"}>
+                            <FaSearch className="nav-link-icon" onClick={() => { setShowSearch(!showSearch); setExpanded(false) }} />
+                            <NavLink as={Link} to={user ? "/profile" : "/login"} onClick={() => setExpanded(false)} >
                                 <FaUser className="nav-link-icon" />
                             </NavLink>
-                            <NavLink as={Link} to="/cart" className="position-relative d-inline-flex">
+                            <NavLink as={Link} to="/cart" className="position-relative d-inline-flex" onClick={() => setExpanded(false)}>
                                 <FaShoppingCart className="nav-link-icon" />
                                 {cartCount > 0 && (
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.6rem' }}>

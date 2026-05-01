@@ -34,9 +34,9 @@ const Hero = ({ CatalogRef }) => {
                         </div>
                         <div className="hero-stats d-flex gap-4">
                             {/* tex-muted para que el texto sea gris */}
-                            <div><strong>100+</strong><small className="text-muted">Productos</small></div>
-                            <div><strong>4.9 ★</strong><small className="text-muted">Valoración media</small></div>
-                            <div><strong>48h</strong><small className="text-muted">Envío express</small></div>
+                            <div><strong>100+ </strong><small className="text-muted">Productos</small></div>
+                            <div><strong>4.9★ </strong><small className="text-muted">Valoración media</small></div>
+                            <div><strong>48h </strong><small className="text-muted">Envío express</small></div>
                         </div>
                     </div>
                     {/* Imagen derecha */}

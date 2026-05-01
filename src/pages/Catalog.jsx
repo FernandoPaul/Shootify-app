@@ -141,7 +141,7 @@ function Catalog({ limit, type: typeFromProps }) {
                     ) : (
                         // Hace un bucle para cada producto para generar una tarjeta por cada uno 
                         productosVisibles.map((product) => (
-                            <div key={product.id} className="col-md-6 col-lg-3">
+                            <div key={product.id} className="col-6 col-md-6 col-lg-3">
                                 <ProductCard product={product} as={NavLink} to={`/catalog/item/${product.id}`} alt={`Imagen de ${product.name}`} />
                             </div>
                         ))

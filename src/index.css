@@ -55,8 +55,9 @@ body {
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1126px;
+  /* 1126px + 64px margen izq + 64px margen der = 1254px, casi los 1280px */
   margin: 0 auto;
   text-align: center;
   border-inline: 1px solid var(--border);
