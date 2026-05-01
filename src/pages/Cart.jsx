@@ -1,19 +1,91 @@
 import "./Cart.css";
 import { useCart } from '../context/CartContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
+// Componente del toast de confirmación
+const ConfirmPaymentToast = ({ onConfirm, onCancel }) => (
+    <div className="">
+        <p className="mb-2 fw-bold">¿Confirmar el pedido?</p>
+        <p className="small text-muted mb-3">Procederás al pago de tu carrito</p>
+        <div className="d-flex gap-3">
+            <button
+                className="btn btn-success btn-sm px-3"
+                onClick={onConfirm}
+            >
+                Pagar
+            </button>
+            <button
+                className="btn btn-outline-secondary btn-sm px-3"
+                onClick={onCancel}
+            >
+                Cancelar
+            </button>
+        </div>
+    </div>
+)
 
 function Cart() {
     // Variables globales del carrito
-    const { cart, removeFromCart, updateQuantity, cartTotal, cartCount } = useCart()
+    const { cart, removeFromCart, updateQuantity, cartTotal, cartCount, clearCart } = useCart()
+    const navigate = useNavigate()
+    // Genera un número de pedido falso
+    const generateOrderNumber = () => {
+        const random = Math.floor(Math.random() * 900000) + 100000
+        return `SHOOTIFY-${random}`
+    }
     // Manejador del boton de comprar
     const handleCheckout = () => {
-        //estas seguro que quieres comprar
-        if (confirm("¿Estás seguro de que quieres comprar?")) {
-            alert("Gracias por su compra")
+        // Si el carrito está vacío no hace nada
+        if (cart.length === 0) return
+        // Variable para guardar el id del toast
+        let confirmToastId = null
+        // Manejador del boton de pagar
+        const handleConfirm = () => {
+            toast.dismiss(confirmToastId)   // Cierra el toast de confirmación
+            // Genera un número de pedido
+            const orderNumber = generateOrderNumber()
+            // Toast de éxito
+            toast.success(
+                <div>
+                    <p className="fw-bold mb-1">¡Pedido completado! 🎉</p>
+                    <p className="small mb-0">Número de pedido:</p>
+                    <p className="fw-bold text-success d-flex align-items-center mb-1">{orderNumber}</p>
+                    <p className="small text-muted">Recibirás un email de confirmación</p>
+                </div>,
+                {
+                    position: 'top-center',
+                    autoClose: 5000,
+                    closeOnClick: false,
+                }
+            )
+            clearCart() // Limpia el carrito
+            navigate('/') // Navega a la página de inicio
         }
-        else {
-            alert("Cancelaste la compra")
+
+        const handleCancel = () => {
+            toast.dismiss(confirmToastId) // Cierra el toast de confirmación
+            // Toast de cancelar
+            toast.info('Pedido cancelado', {
+                position: 'top-center',
+                autoClose: 2000,
+            })
         }
+
+        // Muestra el toast de confirmación
+        confirmToastId = toast(
+            <ConfirmPaymentToast
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+            />,
+            {
+                position: 'top-center',
+                autoClose: false,    // no se cierra solo
+                closeOnClick: false, // no se cierra al hacer clic fuera
+                draggable: false,
+                closeButton: false,
+            }
+        )
     }
     return (
         <div className="container py-4">
@@ -87,7 +159,7 @@ function Cart() {
                                 {cartTotal.toFixed(2) >= 49 ? cartTotal.toFixed(2) : (cartTotal + 9.99).toFixed(2)}€
                             </h2>
                         </div>
-                        <button className="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-3" onClick={handleCheckout}>Continuar Compra</button>
+                        <button className="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-3" onClick={handleCheckout} disabled={cart.length === 0}>Continuar Compra</button>
                         <Link to="/" className="btn btn-outline-dark w-100 py-3 rounded-3 fw-bold">Seguir Comprando</Link>
                         <hr />
                         <div className="">

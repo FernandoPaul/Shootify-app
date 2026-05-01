@@ -15,7 +15,8 @@ function ProductCard({ product }) {
     };
 
     // Manejador para añadir al carrito
-    const handleAddToCart = async () => {
+    const handleAddToCart = async (e) => {
+        e.stopPropagation() // evita que se propague el evento y se abra el detalle del producto
         await addToCart(product, 1)
         toast.success(`${product.name} añadido al carrito`, {
             position: 'bottom-right',
