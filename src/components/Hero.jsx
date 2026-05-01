@@ -30,7 +30,7 @@ const Hero = ({ CatalogRef }) => {
                         <div className="hero-buttons d-flex gap-3 mb-4">
                             {/* d-flex para que sea flexbox, gap-3 para que haya espacio entre los botones */}
                             <button className="btn btn-dark" onClick={handleScrollToCatalog}>Ver Catálogo</button>
-                            <Link to="/catalog" className="btn btn-outline-dark">Ver Novedades</Link>
+                            <Link to="/catalog/destacados" className="btn btn-outline-dark">Ver Destacados</Link>
                         </div>
                         <div className="hero-stats d-flex gap-4">
                             {/* tex-muted para que el texto sea gris */}

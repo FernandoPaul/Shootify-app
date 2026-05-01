@@ -4,8 +4,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from '../context/CartContext'
-import { useAuth } from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import './ProductDetail.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -29,8 +27,6 @@ function ProductDetail() {
 
     // variables para el carrito
     const { addToCart } = useCart()
-    const { user } = useAuth()
-    const navigate = useNavigate()
 
     useEffect(() => {
         const obtenerProducto = async () => {
@@ -69,6 +65,13 @@ function ProductDetail() {
             autoClose: 2000,
         })
     }
+    // Manejador para añadir a favoritos
+    const handleAddFavorite = async () => {
+        toast.success(`${product.name} añadido a favoritos`, {
+            position: 'bottom-right',
+            autoClose: 1500,
+        })
+    }
 
     if (loading) {
         return <div className="container py-5 text-center">Cargando producto...</div>
@@ -105,10 +108,9 @@ function ProductDetail() {
                 </div>
                 {/* Derecha: Info */}
                 <div className="col-lg-4 col-md-5">
+                    {/* INFORMACION DEL PRODUCTO */}
                     <small className="text-muted">{product.brand}</small>
                     <h2 className="mt-2">{product.name}</h2>
-                    {/* RATING */}
-
                     {/* PRECIO */}
                     <div className="d-flex align-items-center justify-content-end gap-2 mb-3 ">
                         <h3 className="d-inline">{product.price}€</h3>
@@ -175,7 +177,7 @@ function ProductDetail() {
                     {/* BOTÓNES */}
                     <div className="d-grid gap-2">
                         <button className="btn btn-outline-primary w-100 mb-3" onClick={handleAddToCart}><i className="bi bi-bag-plus-fill"></i> Añadir al carrito</button>
-                        <button className="btn btn-outline-dark w-100 mb-3"><i className="bi bi-heart-fill"></i> Añadir a favoritos</button>
+                        <button className="btn btn-outline-dark w-100 mb-3" onClick={handleAddFavorite}><i className="bi bi-heart-fill"></i> Añadir a favoritos</button>
                     </div>
                     {/* DESCRIPCIÓN */}
                     <div className="mt-4">

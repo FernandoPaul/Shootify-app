@@ -1,29 +1,36 @@
 import ProductCard from "../components/ProductsCard";
 import { NavLink } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { useState } from "react";
-import { db } from "../firebase/config";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
-import CategoryFilter from "../components/CategoryFilter";
-import { useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import PageBanner from "../components/PageBanner";
-import bannerProductos from "../assets/banner_productos.jpg";
-import bannerAccesorios from "../assets/banner_accesorios.jpg";
+import { useState } from "react"
+import { db } from "../firebase/config"
+import { collection, getDocs } from "firebase/firestore"
+import { useEffect } from "react"
+import CategoryFilter from "../components/CategoryFilter"
+import { useLocation } from "react-router-dom"
+import { useParams } from "react-router-dom"
+import PageBanner from "../components/PageBanner"
+
 function Catalog({ limit, type: typeFromProps }) {
+    // URL para las fotos del banner
+    const bannerProductos = "https://firebasestorage.googleapis.com/v0/b/ecommerce-app-9dc42.firebasestorage.app/o/banner_productos.jpg?alt=media&token=eff412f9-04c7-4409-8a46-ebcd591c3eee"
+    const bannerAccesorios = "https://firebasestorage.googleapis.com/v0/b/ecommerce-app-9dc42.firebasestorage.app/o/banner_accesorios.jpg?alt=media&token=496cd188-0fcc-4cc1-a220-2384b8cc18ff"
+
+    //Hooks para obtener los parámetros de la URL
     const { type: typeFromParams } = useParams();
     const type = typeFromProps || typeFromParams; // Obtiene el tipo de producto de las props o de los parámetros de la URL
-    //console.log("tipo: ", type);
+
     //Hooks para guardar la información
     const [category, setCategory] = useState("Todos"); // Hook para guardar la categoría seleccionada
+    useEffect(() => {
+        setCategory("Todos"); // Resetea la categoría a "Todos" cuando cambia el tipo de producto
+    }, [type]);
     const [products, setProducts] = useState([]); // Hook para guardar los productos
     const [loading, setLoading] = useState(true); // Hook para guardar el estado de carga
-
     const location = useLocation(); // Hook para obtener la ubicación actual
     const queryParams = new URLSearchParams(location.search); // Obtiene los parámetros de la URL
 
-    const search = decodeURIComponent(queryParams.get("search") || ""); //decodeURIComponent para decodificar el parámetro de búsqueda, por si tiene espacios o caracteres especiales
+    //decodeURIComponent para decodificar el parámetro de búsqueda, por si tiene espacios o caracteres especiales
+    const search = decodeURIComponent(queryParams.get("search") || "");
 
     //Función para normalizar el texto
     const normalizarTexto = (texto) => texto
@@ -62,7 +69,7 @@ function Catalog({ limit, type: typeFromProps }) {
     const filtroProductos = products.filter((product) => {
         //FILTRO POR TIPO
         let elegirTipo = true;
-        if (type === "novedades") {
+        if (type === "destacados") {
             elegirTipo = product.featured === true;
         } else if (type === "ofertas") {
             elegirTipo = product.onSale === true;
@@ -87,7 +94,7 @@ function Catalog({ limit, type: typeFromProps }) {
             return "Accesorios";
         } else if (type === "productos") {
             return "Productos";
-        } else if (type === "novedades") {
+        } else if (type === "destacados") {
             return "Destacados";
         } else if (type === "ofertas") {
             return "Ofertas";
@@ -101,17 +108,20 @@ function Catalog({ limit, type: typeFromProps }) {
     console.log("Filtro productos: ", filtroProductos.length)
     console.log("limit: ", limit)
     console.log("type: ", type)
+
     // Función para elegir el banner según el tipo
+
     const getBanner = () => {
         switch (type) {
             case "productos": return { img: bannerProductos, title: "Productos" }
             case "accesorios": return { img: bannerAccesorios, title: "Accesorios" }
-            case "novedades": return { img: bannerProductos, title: "Destacados" }
+            case "destacados": return { img: bannerProductos, title: "Destacados" }
             case "ofertas": return { img: bannerProductos, title: "Ofertas" }
             default: return null
         }
     }
     const banner = getBanner()
+
     return (
         <>
             {/* Banner solo si no se pasa el limite, es decir, si no estamos en la pagina principal Home */}
@@ -136,7 +146,16 @@ function Catalog({ limit, type: typeFromProps }) {
                                     No hay resultados para "<strong>{search}</strong>"
                                 </p>
                             )}
-                            <button className="btn btn-dark mt-3" onClick={() => window.location.href = "/catalog"}>Ver todos los productos</button>
+                            {/* Cuando viene del search, type es undefined, por lo que se muestra "productos" por defecto, pero solo en productos*/}
+                            <button className="btn btn-dark mt-3" onClick={() => {
+                                if (!type) {
+                                    window.location.href = `/catalog`
+                                } else {
+                                    window.location.href = `/catalog/${type}`
+                                }
+                            }}>
+                                Ver todos los productos
+                            </button>
                         </div>
                     ) : (
                         // Hace un bucle para cada producto para generar una tarjeta por cada uno 

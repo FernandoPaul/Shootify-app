@@ -48,7 +48,7 @@ const CustomNavbar = () => {
                         <Nav className="mx-auto"> {/* mx-auto centra el menú */}
                             <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/productos" onClick={() => setExpanded(false)}>Productos</NavLink>
                             <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/accesorios" onClick={() => setExpanded(false)}>Accesorios</NavLink>
-                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/novedades" onClick={() => setExpanded(false)}>Destacados</NavLink>
+                            <NavLink className='nav-link fw-bold ' as={NavLink} to="/catalog/destacados" onClick={() => setExpanded(false)}>Destacados</NavLink>
                             <NavLink className='nav-link fw-bold text-danger' as={NavLink} to="/catalog/ofertas" onClick={() => setExpanded(false)}>Ofertas</NavLink>
                         </Nav>
 

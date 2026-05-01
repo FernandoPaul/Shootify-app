@@ -1,18 +1,27 @@
 import './ProductsCard.css'
 import { FaPlus } from 'react-icons/fa'
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
+import { useCart } from '../context/CartContext'
 
 {/* FaPlus para añadir al carrito */ }
 function ProductCard({ product }) {
-    const navigate = useNavigate(); // Para navegar entre páginas
+    const navigate = useNavigate() // Para navegar entre páginas
+    const { addToCart } = useCart() // variables para el carrito
+
+    // Manejador para ir a la página de detalle del producto
     const handleCardClick = () => {
-        navigate(`/catalog/item/${product.id}`); // Entra al detalle del producto
+        navigate(`/catalog/item/${product.id}`);
     };
 
-    const handleAddToCart = (e) => {
-        e.stopPropagation(); // Evita que se propague el evento al hacer clic en el botón
-        // Aquí irá la lógica para añadir al carrito
-        console.log('Añadir al carrito:', product.nombre);
+    // Manejador para añadir al carrito
+    const handleAddToCart = async () => {
+        await addToCart(product, 1)
+        toast.success(`${product.name} añadido al carrito`, {
+            position: 'bottom-right',
+            autoClose: 2000,
+        })
+        console.log('Añadir al carrito:', product.id)
     };
 
     return (
