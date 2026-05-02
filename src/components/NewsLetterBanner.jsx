@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { validateEmail } from '../utils/validations';
 import './NewsLetterBanner.css'
+import { toast } from 'react-toastify'
 
 function NewsLetterBanner() {
 
@@ -9,6 +10,8 @@ function NewsLetterBanner() {
     const [error, setError] = useState('');
     // Validaciones
     const formValid = validateEmail(email)
+
+    // Manejador del formulario con Toastify
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -17,7 +20,16 @@ function NewsLetterBanner() {
                 return;
             }
             setError(""); // Limpiar el error
-            alert("Suscrito correctamente. Comprueba tu correo electrónico para confirmar la suscripción.");
+            toast.success(
+                <div>
+                    <p className='fw-bold mb-1'>¡Suscrito correctamente!</p>
+                    <p className='mb-0'>Comprueba tu correo electrónico para confirmar la suscripción.</p>
+                </div>,
+                {
+                    position: 'top-center',
+                    autoClose: 4000,
+                }
+            );
             setEmail(''); // Limpiar el formulario
         } catch (error) {
             setError("Error al suscribirse");
