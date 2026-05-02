@@ -37,7 +37,7 @@ function Cart() {
     // Manejador del boton de comprar
     const handleCheckout = () => {
         // Si el carrito está vacío no hace nada
-        if (cart.length === 0) return
+        if (cartCount === 0) return
         // Variable para guardar el id del toast
         let confirmToastId = null
         // Manejador del boton de pagar
@@ -159,7 +159,7 @@ function Cart() {
                                 {cartTotal.toFixed(2) >= 49 ? cartTotal.toFixed(2) : (cartTotal + 9.99).toFixed(2)}€
                             </h2>
                         </div>
-                        <button className="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-3" onClick={handleCheckout} disabled={cart.length === 0}>Continuar Compra</button>
+                        <button className="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-3" onClick={handleCheckout} disabled={cartCount === 0}>Tramitar Pedido</button>
                         <Link to="/" className="btn btn-outline-dark w-100 py-3 rounded-3 fw-bold">Seguir Comprando</Link>
                         <hr />
                         <div className="">
