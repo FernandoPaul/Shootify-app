@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { validateEmail, isPasswordValid } from "../utils/validations";
 import PasswordRules from "../components/PasswordRules";
@@ -29,7 +29,7 @@ function Register() {
     const emailValid = email === '' || validateEmail(email)
     const passwordValid = password === '' || isPasswordValid(password)
     const confirmPasswordValid = confirmPassword === '' || password === confirmPassword
-    const formValid = fullName.trim() !== '' && validateEmail(email) && isPasswordValid(password) && password === confirmPassword && acceptTermes
+    const formValid = fullName.trim() !== '' && validateEmail(email) && isPasswordValid(password) && password === confirmPassword && acceptTerms
 
     // Manejador del Registro Manual
     const handleRegister = async () => {
@@ -39,21 +39,14 @@ function Register() {
         setError('')
         setSuccess('')
         try {
-            //Crea el usuario en Firebase Auth
+            // Crea el usuario en Firebase Auth
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
             // Actualiza el perfil del usuario con el nombre
             await updateProfile(user, { displayName: fullName })
-            await createProfile(user.uid, { fullName, email })
             // Crea el documento del usuario en Firestore
-            await setDoc(doc(db, 'users', user.uid), {
-                fullName,
-                email,
-                phone: '',
-                address: { street: '', city: '', province: '', zip: '', country: 'España' },
-                createdAt: serverTimestamp(),
+            await createProfile(user.uid, { fullName, email })
 
-            })
             setSuccess("¡Cuenta creada con exito! Redirigiendo...")
             console.log("¡Registro exitoso!");
             setTimeout(() => navigate('/profile'), 1500) // Ejecuta la redireccion 1.5 segundos despues de que se crea la cuenta
@@ -102,7 +95,6 @@ function Register() {
             createdAt: serverTimestamp(),
         }
         await setDoc(ref, profileData)
-        setProfile(profileData)
     }
 
     return (
@@ -166,8 +158,8 @@ function Register() {
                         {/* El pe-5 en el input deja espacio para que el icono no tape el texto,
                         y position-absolute con end-0 lo coloca siempre a la derecha dentro del input. */}
                         <span
-                            className="position-absolute top-50 translate-middle-y "
-                            style={{ cursor: 'pointer', zIndex: 5, right: '2.5rem' }}
+                            className="position-absolute top-50 translate-middle-y d-flex align-items-center pb-2"
+                            style={{ cursor: 'pointer', zIndex: 5, right: '2rem' }}
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -179,7 +171,7 @@ function Register() {
 
                     {/* CONFIRMAR CONTRASEÑA */}
                     <label>Confirmar Contraseña</label>
-                    <div className="position-relative mb-1">
+                    <div className="position-relative mb-1 ">
                         <input
                             type={showConfirmPassword ? 'text' : 'password'}
                             placeholder="Repite la contraseña"
@@ -189,8 +181,8 @@ function Register() {
                             autoComplete="new-password"
                         />
                         <span
-                            className="position-absolute top-50 translate-middle-y me-3"
-                            style={{ cursor: 'pointer', zIndex: 5, right: '1rem' }}
+                            className="position-absolute top-50 translate-middle-y d-flex align-items-center pb-2"
+                            style={{ cursor: 'pointer', zIndex: 5, right: '2rem' }}
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         >
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
