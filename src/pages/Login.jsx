@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { auth } from "../firebase/config";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { validateEmail, isPasswordValid } from "../utils/validations";
+import { validateEmail } from "../utils/validations";
 import '../pages/AuthLoginRegister.css'
 import { Link, useNavigate } from "react-router-dom";
-import PasswordRules from "../components/PasswordRules";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Iniciar sesion
@@ -120,8 +119,8 @@ function Login() {
                         />{/* El pe-5 en el input deja espacio para que el icono no tape el texto,
                             y position-absolute con end-0 lo coloca siempre a la derecha dentro del input. */}
                         <span
-                            className="position-absolute top-50 translate-middle-y me-3"
-                            style={{ cursor: 'pointer', zIndex: 5, right: '1rem' }}
+                            className="position-absolute top-50 translate-middle-y d-flex align-items-center pb-2"
+                            style={{ cursor: 'pointer', zIndex: 5, right: '2rem' }}
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
