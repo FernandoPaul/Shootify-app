@@ -121,7 +121,7 @@ function Register() {
                     <input
                         type="text"
                         placeholder="Tu nombre"
-                        className="form-control mb-3"
+                        className="form-control mb-1"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)} required
                         autoComplete="name"
