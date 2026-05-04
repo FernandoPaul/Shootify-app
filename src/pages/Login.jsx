@@ -78,7 +78,7 @@ function Login() {
     return (
         <div className="auth-container">
             <div className="auth-card">
-                <h2>Bienvenido de nuevo</h2>
+                <h2>Iniciar Sesión</h2>
                 {/* GOOGLE */}
                 {/* disable para deshabilitar el boton si esta cargando */}
                 <button className="btn btn-light w-100 mb-3 d-flex justify-content-center align-items-center gap-2" onClick={handleGoogleLogin} disabled={loading}>
