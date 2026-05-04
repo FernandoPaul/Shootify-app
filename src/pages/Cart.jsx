@@ -32,7 +32,7 @@ function Cart() {
     // Genera un número de pedido falso
     const generateOrderNumber = () => {
         const random = Math.floor(Math.random() * 900000) + 100000
-        return `SHOOTIFY-${random}`
+        return `SHTFY-${random}`
     }
     // Manejador del boton de comprar
     const handleCheckout = () => {
@@ -112,7 +112,7 @@ function Cart() {
                                     <div className="d-flex justify-content-between align-items-start">
                                         <div>
                                             <h5 className="fw-bold mb-0">{item.name}</h5>
-                                            <small className="text-muted">SHOOTIFY</small>
+                                            <small className="text-muted">{item.brand}</small>
                                         </div>
                                         <button className="btn-close-custom" onClick={() => removeFromCart(item.id)}>✕</button>
                                     </div>

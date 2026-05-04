@@ -14,7 +14,16 @@ function Contact() {
     // Manejador del envio del formulario
     const handleSubmit = (e) => {
         e.preventDefault()
-        alert('Mensaje enviado. ¡Gracias por contactarnos!')
+        toast.success(
+            <div>
+                <p className="fw-bold mb-1">¡Mensaje enviado! 🎉</p>
+                <p className="small text-muted">Recibirás una respuesta lo antes posible</p>
+            </div>,
+            {
+                position: 'top-center',
+                autoClose: 3000,
+            }
+        )
         setForm({ name: "", email: "", subject: "", order: "", message: "" }) // Resetear el formulario
     }
 
