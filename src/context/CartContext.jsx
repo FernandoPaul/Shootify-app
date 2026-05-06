@@ -92,12 +92,10 @@ export function CartProvider({ children }) {
         clearLocalCart() // limpia el localStorage tras fusionar
     }
     // ACCIONES QUE REALIZAN LOS USUARIOS
-
     // Añadir producto al carrito
     const addToCart = async (product, quantity = 1) => {
         const exists = cart.find(item => item.id === product.id)
         let newCart
-
         if (exists) {
             // Si ya existe, suma la cantidad
             newCart = cart.map(item =>
@@ -159,9 +157,9 @@ export function CartProvider({ children }) {
         setCart([])
         // si hay usuario, guardamos en firestore, si no, en local
         if (user) {
-            await saveFirestoreCart(newCart)
+            await saveFirestoreCart()
         } else {
-            saveLocalCart(newCart)
+            saveLocalCart()
         }
     }
 

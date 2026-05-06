@@ -15,6 +15,7 @@ const CustomNavbar = () => {
     const navigate = useNavigate()
     // Variable para controlar el menu colapsable en movil
     const [expanded, setExpanded] = useState(false)
+    // Manejador del buscador - Cuando se presiona Enter, se busca en el catálogo
     const handleSearch = (e) => {
         if (e.key === "Enter") {
             e.preventDefault() /* Evita que la página se recargue */
