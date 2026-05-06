@@ -83,7 +83,7 @@ function ProductDetail() {
 
     // MOSTRAR PRODUCTO
     return (
-        <div className="container py-5">
+        <div className="container py-3">
             <div className="row ">
                 {/* Izquierda: Imagenes */}
                 <div className="col-lg-8 col-md-7">
