@@ -123,7 +123,7 @@ function ProductDetail() {
                     {/* SELECTOR DE MODELO */}
                     {product.category === "Carcasas" && (
                         <div className="option-group">
-                            <label>Tamaño</label>
+                            <label>Modelo</label>
                             <select
                                 className="form-select"
                                 value={selectedModel}
